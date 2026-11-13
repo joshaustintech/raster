@@ -49,7 +49,7 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-In the repository settings, set Pages source to "GitHub Actions". (This workflow is a template and has not been run against this theme.)
+In the repository settings, set Pages source to "GitHub Actions". (This workflow is a template.) This repository's own `.github/workflows/pages.yml` deploys `exampleSite` the same way, taking `baseURL` from `actions/configure-pages`; it has not been run yet.
 
 ## Netlify
 

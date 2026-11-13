@@ -1,0 +1,62 @@
+name: CI
+on:
+  push: { branches: [main] }
+  pull_request:
+permissions: { contents: read }
+concurrency: { group: "ci-${{ github.ref }}", cancel-in-progress: true }
+
+jobs:
+  build:
+    name: Build (Hugo ${{ matrix.hugo }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        hugo: ["0.158.0", "latest"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: stable }
+      - uses: peaceiris/actions-hugo@v3
+        with: { hugo-version: "${{ matrix.hugo }}", extended: true }
+      - run: hugo version
+      - run: hugo --gc --minify --source exampleSite --destination "$RUNNER_TEMP/public"
+
+  checks:
+    name: Tokens, parity, accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: stable }
+      - uses: peaceiris/actions-hugo@v3
+        with: { hugo-version: "0.158.0", extended: true }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Token sync
+        run: npm run tokens:check
+      - name: Parity
+        run: npm run parity
+      - name: Accessibility (axe, third-party requests, overflow)
+        run: npm run a11y
+      - name: Keyboard
+        run: npm run a11y:keyboard -- --dest /tmp/raster-a11y-public
+
+  html-validate:
+    name: HTML validation (vnu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: stable }
+      - uses: peaceiris/actions-hugo@v3
+        with: { hugo-version: "0.158.0", extended: true }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - run: hugo --gc --minify --source exampleSite --destination "$RUNNER_TEMP/public"
+      - name: Validate
+        run: |
+          npm install --no-save --no-package-lock vnu-jar@24.10.17
+          java -jar node_modules/vnu-jar/build/dist/vnu.jar --skip-non-html --errors-only "$RUNNER_TEMP/public"
