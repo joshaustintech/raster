@@ -1,6 +1,6 @@
 # 07. Styleguide page rendering every component
 
-Status: ready-for-agent
+Status: resolved
 Blocked by: 05, 06
 Spec: ../spec.md
 
