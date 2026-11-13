@@ -1,0 +1,4 @@
+{{- /* Notes pages only. Fingerprinted first-party script, no inline JS. Input: "notes" or "embed" */ -}}
+{{- with resources.Get (printf "js/%s.js" (. | default "notes")) | minify | fingerprint -}}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+{{- end }}
