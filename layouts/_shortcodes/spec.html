@@ -1,0 +1,2 @@
+{{- /* {{< spec "Role" "Lead designer" >}} ; consecutive calls each render a one-row list. Prefer front matter + speclist for groups. */ -}}
+{{- partial "speclist.html" (slice (dict "label" (.Get 0) "value" (.Get 1))) -}}

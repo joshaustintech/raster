@@ -18,3 +18,11 @@
   .rs-nav, .rs-footer, .rs-skip { display: none !important; }
   .rs-article a[href^="http"]::after { content: " (" attr(href) ")"; font-family: var(--font-mono); font-size: .8125rem; }
 }
+
+/* Chroma syntax tokens (classes, not inline styles). Tokens only; no signal. */
+.chroma .c, .chroma .c1, .chroma .cm, .chroma .cs, .chroma .ch, .chroma .cp, .chroma .cpf { color: var(--ink-muted); font-style: italic; }
+.chroma .k, .chroma .kc, .chroma .kd, .chroma .kn, .chroma .kp, .chroma .kr, .chroma .kt, .chroma .nt { color: var(--fleece); }
+.chroma .s, .chroma .sa, .chroma .sb, .chroma .sc, .chroma .dl, .chroma .sd, .chroma .s2, .chroma .se, .chroma .sh, .chroma .si, .chroma .sx, .chroma .sr, .chroma .s1, .chroma .ss { color: var(--olive); }
+.chroma .m, .chroma .mb, .chroma .mf, .chroma .mh, .chroma .mi, .chroma .il, .chroma .mo, .chroma .nb, .chroma .bp { color: var(--clay); }
+.chroma .nf, .chroma .fm, .chroma .nc, .chroma .na { color: var(--ink); font-weight: 500; }
+.chroma .gd, .chroma .gi { color: var(--clay); }

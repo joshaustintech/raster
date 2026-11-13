@@ -1,0 +1,4 @@
+{{- /* {{< card path="/work/x" kicker="Work" index=1 total=4 >}} */ -}}
+{{- with site.GetPage (.Get "path") -}}
+{{- partial "card-link.html" (dict "page" . "kicker" ($.Get "kicker") "index" ($.Get "index") "total" ($.Get "total") "summary" ($.Get "summary")) -}}
+{{- else -}}{{ warnf "card shortcode: page %q not found" (.Get "path") }}{{- end -}}

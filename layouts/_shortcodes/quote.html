@@ -1,0 +1,1 @@
+{{- partial "quote.html" (dict "text" (cond (ne .Inner "") (.Inner | markdownify) (.Get "text")) "who" (.Get "who") "source" (.Get "source")) -}}

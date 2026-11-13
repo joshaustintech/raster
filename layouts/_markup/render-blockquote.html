@@ -1,0 +1,5 @@
+{{- if eq .Type "alert" -}}
+{{- partial "aside.html" (dict "label" (.AlertTitle | default (.AlertType | title)) "body" .Text) -}}
+{{- else -}}
+<figure class="rs-quote"><blockquote>{{ .Text }}</blockquote></figure>
+{{- end -}}
