@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../css/fonts.css"><link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/raster.css"><meta charset="utf-8"><title>Nav — preview</title>
+<style>body{margin:0;background:var(--paper-raised);font-family:var(--font-text)}.lab{padding:var(--space-2) var(--space-3)}.phone{width:390px;margin:0 var(--space-3);position:relative;height:400px;background:var(--paper);outline:1px solid var(--line)}</style></head>
+<body>
+<p class="rs-mono lab">≥ 1024px · inline links</p>
+<div class="rs-c">
+<nav class="rs-nav" aria-label="Primary"><div class="rs-wrap">
+  <a class="rs-nav__mark" href="#">Avery Lin</a>
+  <ul class="rs-nav__links"><li><a href="#">Work</a></li><li><a href="#" aria-current="page">Writing</a></li><li><a href="#">Notes</a></li><li><a href="#">About</a></li></ul>
+  <a class="rs-btn rs-btn--primary rs-nav__cta" href="#">Contact</a>
+  <details class="rs-nav__menu"><summary>Menu</summary><div class="rs-nav__panel"><ul><li><a href="#">Work</a></li></ul></div></details>
+</div></nav>
+</div>
+<p class="rs-mono lab">&lt; 1024px · menu disclosure (shown open, 390px)</p>
+<div class="phone rs-c">
+<nav class="rs-nav" aria-label="Primary"><div class="rs-wrap">
+  <a class="rs-nav__mark" href="#">Avery Lin</a>
+  <a class="rs-btn rs-btn--primary rs-nav__cta" href="#">Contact</a>
+  <details class="rs-nav__menu" open><summary>Close</summary>
+    <div class="rs-nav__panel"><ul><li><a href="#">Work</a></li><li><a href="#" aria-current="page">Writing</a></li><li><a href="#">Notes</a></li><li><a href="#">About</a></li></ul>
+    <a class="rs-btn rs-btn--primary" href="#">Contact</a></div>
+  </details>
+</div></nav>
+</div>
+</body>
+</html>

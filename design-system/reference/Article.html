@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../css/fonts.css"><link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/raster.css"><meta charset="utf-8"><title>Article — preview</title><style>body{margin:0;background:var(--paper)}</style></head>
+<body>
+<div class="rs-c">
+<article class="rs-article"><div class="rs-wrap">
+  <header class="rs-cols"><div class="rs-article__head">
+    <p class="rs-eyebrow">Writing · Infrastructure</p>
+    <h1 class="rs-t-display">Choosing a boring queue</h1>
+    <p class="rs-t-lede">Why the most reliable message broker we ran was the database we already had.</p>
+    <div class="rs-article__meta"><span class="rs-mono"><time datetime="2026-11-04">4 Nov 2026</time></span><span class="rs-mono">8 min read</span><span class="rs-mono">Postgres · Go</span></div>
+  </div></header>
+  <div class="rs-cols rs-article__body">
+    <p>For four years our background jobs ran on a broker we had written ourselves. It was fast, clever, and understood by two people. When one of them left, it became the riskiest system we owned.</p>
+    <aside class="rs-aside"><p class="rs-eyebrow">Note</p><p>Latency figures are p99 over 30 days of production traffic.</p></aside>
+    <p>The replacement had to be dull: something every engineer already knew how to query, back up and page on. Postgres, with <code>FOR UPDATE SKIP LOCKED</code>, turned out to be enough.</p>
+    <pre><code>SELECT id, payload
+FROM jobs
+WHERE run_at &lt;= now() AND locked_at IS NULL
+ORDER BY run_at
+LIMIT 32
+FOR UPDATE SKIP LOCKED;</code></pre>
+    <figure class="rs-figure rs-figure--21x9 rs-figure--wide"><div class="rs-ph" role="img" aria-label="Chart: p99 enqueue latency drops from 41 ms to 6 ms after the cut-over"><span>Chart · 21:9 · cols 4–12</span></div><figcaption><span class="rs-mono">Fig. 01</span><span>p99 enqueue latency, two weeks either side of the cut-over.</span></figcaption></figure>
+    <h2>What we gave up</h2>
+    <p>Peak throughput is lower than the old broker's synthetic benchmark. In practice we never came within a factor of ten of either ceiling, and we deleted 9,000 lines of code.</p>
+    <figure class="rs-quote"><blockquote><p>“Boring technology is a choice you have to keep making.”</p></blockquote><figcaption><span class="rs-eyebrow">The lesson</span></figcaption></figure>
+    <p>The broker is gone. Nobody has asked for it back.</p>
+  </div>
+</div></article>
+</div>
+</body>
+</html>

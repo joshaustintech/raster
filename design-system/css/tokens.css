@@ -1,0 +1,85 @@
+/* Raster tokens — generated from tokens.json. Edit tokens.json, then regenerate. */
+:root {
+  --paper: #f3f1eb;
+  --paper-raised: #e9e6de;
+  --ink: #151515;
+  --ink-soft: #3d3c39;
+  --ink-muted: #64625c;
+  --line: #d4d0c6;
+  --rule: #8a877e;
+  --fleece: #2a3444;
+  --fleece-ink: #f3f1eb;
+  --olive: #4f5a43;
+  --signal: #d9ec4c;
+  --signal-ink: #151515;
+  --clay: #a6461f;
+  --focus: var(--fleece);
+  --night: #151515;
+  --night-ink: #f3f1eb;
+  --night-muted: #a3a098;
+  --night-line: #34332f;
+  --scrim: rgba(21, 21, 21, 0.65);
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-12: 96px;
+  --space-16: 128px;
+  --grid-columns: 12;
+  --grid-columns-md: 8;
+  --grid-columns-sm: 4;
+  --grid-gutter: 24px;
+  --grid-gutter-sm: 16px;
+  --grid-margin: 48px;
+  --grid-margin-md: 32px;
+  --grid-margin-sm: 24px;
+  --grid-margin-xs: 16px;
+  --grid-baseline: 8px;
+  --grid-field: 64px;
+  --grid-max: 1440px;
+  --bp-sm: 480px;
+  --bp-md: 640px;
+  --bp-lg: 1024px;
+  --bp-xl: 1440px;
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-full: 999px;
+  --font-display: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-text: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+/* Dark follows the system unless the page sets data-theme="light". */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121212;
+    --paper-raised: #1c1c1b;
+    --ink: #ece9e1;
+    --ink-soft: #cfccc4;
+    --ink-muted: #9d9a92;
+    --line: #302f2c;
+    --rule: #6b6963;
+    --fleece: #9aaac2;
+    --fleece-ink: #121212;
+    --olive: #a3b08e;
+    --clay: #e58a62;
+    --focus: #d9ec4c;
+  }
+}
+
+[data-theme="dark"] {
+  --paper: #121212;
+  --paper-raised: #1c1c1b;
+  --ink: #ece9e1;
+  --ink-soft: #cfccc4;
+  --ink-muted: #9d9a92;
+  --line: #302f2c;
+  --rule: #6b6963;
+  --fleece: #9aaac2;
+  --fleece-ink: #121212;
+  --olive: #a3b08e;
+  --clay: #e58a62;
+  --focus: #d9ec4c;
+}

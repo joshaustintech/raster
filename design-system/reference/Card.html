@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../css/fonts.css"><link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/raster.css"><meta charset="utf-8"><title>Card — preview</title>
+<style>body{margin:0;background:var(--paper)}.rs-wrap{padding-block:var(--space-4)}.lab{margin-bottom:var(--space-1)}
+.a,.b,.c{align-self:start}.a{display:grid;row-gap:var(--space-3);align-content:start}@container (min-width:1024px){.a{grid-column:1/span 5}.b{grid-column:6/span 3}.c{grid-column:9/span 4}}
+.row{margin-top:var(--space-6)}.a .lab{margin-bottom:-16px}</style></head>
+<body>
+<div class="rs-c"><div class="rs-wrap rs-cols">
+
+<div class="a">
+  <p class="rs-mono lab">Post · feed width</p>
+  <article class="rs-card rs-post" id="note-2611131402" aria-labelledby="note-2611131402-by">
+    <div class="rs-card__body">
+      <header class="rs-post__head">
+        <span class="rs-avatar" aria-hidden="true">AL</span>
+        <div class="rs-post__who"><p class="rs-post__name" id="note-2611131402-by">Avery Lin</p><span class="rs-mono rs-post__handle">@avery@example.com</span></div>
+        <a class="rs-post__time" href="#note-2611131402"><time datetime="2026-11-13T14:02:00-06:00">3h</time></a>
+      </header>
+      <p class="rs-post__text">Finished moving the job queue onto Postgres SKIP LOCKED. p99 enqueue went from 41 ms to 6 ms, and we deleted 9,000 lines of broker code.
+
+Write-up: <a href="#">example.com/writing/boring-queues</a></p>
+      <figure class="rs-card__media rs-figure"><div class="rs-ph" role="img" aria-label="Latency chart: p99 enqueue falls from 41 to 6 milliseconds after cut-over"><span>Chart · 16:9</span></div></figure>
+    </div>
+    <footer class="rs-post__actions">
+      <button class="rs-post__action" type="button">Reply <span class="rs-count">12</span></button>
+      <button class="rs-post__action" type="button">Repost <span class="rs-count">4</span></button>
+      <button class="rs-post__action" type="button" aria-pressed="true">Like <span class="rs-count">86</span></button>
+      <button class="rs-post__action rs-post__action--end" type="button">Share</button>
+      <button class="rs-post__action" type="button" aria-expanded="false">Embed</button>
+    </footer>
+  </article>
+
+  <article class="rs-card rs-post rs-post--large" aria-label="Note by Avery Lin">
+    <div class="rs-card__body">
+      <header class="rs-post__head">
+        <span class="rs-avatar" aria-hidden="true">AL</span>
+        <div class="rs-post__who"><p class="rs-post__name">Avery Lin</p><span class="rs-mono rs-post__handle">@avery@example.com</span></div>
+        <a class="rs-post__time" href="#"><time datetime="2026-11-12">12 Nov</time></a>
+      </header>
+      <p class="rs-post__text">Most outages I've seen were config, not code.</p>
+      <div class="rs-card rs-post__quote"><div class="rs-card__body">
+        <p class="rs-mono">Quoting · @sam@example.org</p>
+        <p class="rs-post__text">What's the most common root cause in your postmortems?</p>
+      </div></div>
+    </div>
+    <footer class="rs-post__actions">
+      <button class="rs-post__action" type="button">Reply <span class="rs-count">31</span></button>
+      <button class="rs-post__action" type="button">Repost <span class="rs-count">18</span></button>
+      <button class="rs-post__action" type="button" aria-pressed="false">Like <span class="rs-count">240</span></button>
+      <button class="rs-post__action rs-post__action--end" type="button">Share</button>
+      <button class="rs-post__action" type="button" aria-expanded="false">Embed</button>
+    </footer>
+  </article>
+</div>
+
+<div class="b">
+  <p class="rs-mono lab">Post · narrow embed, panel open</p>
+  <article class="rs-card rs-post rs-embed" aria-label="Note by Avery Lin">
+    <div class="rs-card__body">
+      <header class="rs-post__head">
+        <span class="rs-avatar" aria-hidden="true">AL</span>
+        <div class="rs-post__who"><p class="rs-post__name">Avery Lin</p><span class="rs-mono rs-post__handle">@avery@example.com</span></div>
+        <a class="rs-post__time" href="#"><time datetime="2026-11-10">10 Nov</time></a>
+      </header>
+      <p class="rs-post__text">Rule of thumb: if a retry policy isn't in the design doc, it's in the incident report.</p>
+    </div>
+    <footer class="rs-post__actions">
+      <button class="rs-post__action" type="button">Reply <span class="rs-count">5</span></button>
+      <button class="rs-post__action" type="button">Like <span class="rs-count">64</span></button>
+      <button class="rs-post__action rs-post__action--end" type="button">Share</button>
+      <button class="rs-post__action" type="button" aria-expanded="true" aria-controls="embed-1">Embed</button>
+    </footer>
+    <div class="rs-post__panel" id="embed-1">
+      <p class="rs-eyebrow">Embed this note</p>
+      <pre><code>&lt;iframe src="https://example.com/notes/2611101130/embed" title="Note by Avery Lin" width="100%" height="240" loading="lazy" style="border:0;max-width:560px"&gt;&lt;/iframe&gt;</code></pre>
+      <div class="rs-actions"><button class="rs-btn rs-btn--primary" type="button">Copy code</button><button class="rs-btn rs-btn--secondary" type="button">Copy link</button></div>
+    </div>
+  </article>
+</div>
+
+<div class="c">
+  <p class="rs-mono lab">Form</p>
+  <section class="rs-card rs-card--raised" aria-labelledby="contact-title">
+    <div class="rs-card__body">
+      <div class="rs-card__head"><p class="rs-eyebrow">Contact</p><h2 class="rs-card__title" id="contact-title">Start a conversation</h2><p class="rs-card__text">Consulting, speaking or a role. I reply within two working days.</p></div>
+      <form class="rs-form" onsubmit="return false">
+        <div class="rs-form__row rs-form__row--2">
+          <div class="rs-field"><label class="rs-label" for="f-name">Name</label><input class="rs-input" id="f-name" autocomplete="name" value="Sam Rivera"></div>
+          <div class="rs-field"><label class="rs-label" for="f-email">Email</label><input class="rs-input" id="f-email" type="email" autocomplete="email" value="sam@" aria-invalid="true" aria-describedby="f-email-err"><p class="rs-error" id="f-email-err">Error: enter a full email address.</p></div>
+        </div>
+        <div class="rs-field"><label class="rs-label" for="f-topic">Company <span class="rs-opt">(optional)</span></label><input class="rs-input" id="f-topic" autocomplete="organization"></div>
+        <div class="rs-field"><label class="rs-label" for="f-msg">Message</label><textarea class="rs-textarea" id="f-msg" aria-describedby="f-msg-help"></textarea><p class="rs-help" id="f-msg-help">A few sentences on the problem and timeline.</p></div>
+        <label class="rs-check"><input type="checkbox" checked> Send me new posts (about one a month)</label>
+        <div class="rs-form__foot"><span class="rs-mono">No tracking. No list sharing.</span><button class="rs-btn rs-btn--primary" type="submit">Send message</button></div>
+      </form>
+    </div>
+  </section>
+</div>
+</div>
+
+<div class="rs-wrap rs-cols rs-card-grid row">
+  <article class="rs-card rs-card--link">
+    <figure class="rs-card__media"><div class="rs-ph" role="img" aria-label="Queue architecture diagram"><span>Diagram · 16:9</span></div></figure>
+    <div class="rs-card__body">
+      <div class="rs-card__head"><p class="rs-mono">Work · 01 / 04</p><h3 class="rs-card__title"><a class="rs-card__link" href="#">Rebuilding the job queue</a></h3></div>
+      <p class="rs-card__text">Two billion jobs a day moved onto Postgres with no downtime.</p>
+      <div class="rs-card__meta"><span class="rs-mono">2025</span><span class="rs-mono">Postgres · Go</span></div>
+    </div>
+  </article>
+  <article class="rs-card rs-card--link">
+    <div class="rs-card__body">
+      <div class="rs-card__head"><p class="rs-mono">Writing</p><h3 class="rs-card__title"><a class="rs-card__link" href="#">Choosing a boring queue</a></h3></div>
+      <p class="rs-card__text">Why the most reliable message broker we ran was the database we already had.</p>
+      <div class="rs-card__meta"><span class="rs-mono">Nov 2026</span><span class="rs-mono">8 min</span></div>
+    </div>
+  </article>
+  <article class="rs-card rs-card--link">
+    <div class="rs-card__body">
+      <div class="rs-card__head"><p class="rs-mono">Writing</p><h3 class="rs-card__title"><a class="rs-card__link" href="#">Retry budgets, not retry counts</a></h3></div>
+      <p class="rs-card__text">A small change to client libraries that ended a class of cascading failures.</p>
+      <div class="rs-card__meta"><span class="rs-mono">Aug 2026</span><span class="rs-mono">6 min</span></div>
+    </div>
+  </article>
+</div>
+</div>
+</body>
+</html>

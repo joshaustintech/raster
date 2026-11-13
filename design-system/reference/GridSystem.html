@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="../css/fonts.css"><link rel="stylesheet" href="../css/tokens.css"><link rel="stylesheet" href="../css/raster.css"><meta charset="utf-8"><title>GridSystem — preview</title>
+<style>
+body{margin:0;background:var(--paper)}
+.stage{position:relative;padding:var(--space-3) 0}
+.content{position:absolute;inset:var(--space-3) 0;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:var(--grid-field);gap:var(--grid-gutter);padding:0 var(--grid-margin)}
+.f-img{grid-column:7/span 6;grid-row:1/span 3;background:var(--ink)}
+.f-sig{grid-column:7/span 2;grid-row:3;background:var(--signal)}
+.f-title{grid-column:1/span 5;grid-row:1/span 2;font:700 56px/56px var(--font-display);letter-spacing:-.02em;color:var(--ink);margin:0;align-self:end}
+.f-text{grid-column:1/span 4;grid-row:3;font:400 13px/16px var(--font-text);color:var(--ink-muted);margin:0}
+.cols{height:216px}
+.bps{display:grid;gap:var(--space-2);padding:var(--space-3) var(--grid-margin) var(--space-4)}
+.bp{display:grid;grid-template-columns:200px 1fr;gap:var(--space-3);align-items:center}
+.bar{display:grid;height:24px;outline:1px solid var(--line)}
+.bar i{background:color-mix(in srgb, var(--fleece) 22%, transparent)}
+</style></head>
+<body>
+<div class="stage">
+  <div class="rs-grid cols" aria-hidden="true">
+    <i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i><i class="rs-grid__col"></i>
+    <div class="rs-grid__baseline"></div>
+  </div>
+  <div class="content">
+    <h2 class="f-title">Fields, not pixels</h2>
+    <p class="f-text">12 columns · 24px gutter · 48px margin · 64px field rows · 8px baseline. Blocks span whole fields and the gutters between them.</p>
+    <div class="f-img"></div>
+    <div class="f-sig"></div>
+  </div>
+</div>
+<div class="bps" aria-label="Breakpoints">
+  <div class="bp"><span class="rs-mono">≥1024 · 12 col · 24 / 48</span><div class="bar" style="grid-template-columns:repeat(12,1fr);column-gap:24px;padding:0 48px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  <div class="bp"><span class="rs-mono">640–1023 · 8 col · 24 / 32</span><div class="bar" style="width:72%;grid-template-columns:repeat(8,1fr);column-gap:24px;padding:0 32px"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  <div class="bp"><span class="rs-mono">480–639 · 4 col · 16 / 24</span><div class="bar" style="width:46%;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 24px"><i></i><i></i><i></i><i></i></div></div>
+  <div class="bp"><span class="rs-mono">&lt;480 · 4 col · 16 / 16</span><div class="bar" style="width:30%;grid-template-columns:repeat(4,1fr);column-gap:16px;padding:0 16px"><i></i><i></i><i></i><i></i></div></div>
+</div>
+</body>
+</html>
