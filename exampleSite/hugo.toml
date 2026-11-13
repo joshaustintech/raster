@@ -36,3 +36,10 @@ locale = "en"
 [markup.highlight]
   noClasses = false
   lineNos = false
+
+# Notes: embed output format (baseName "embed/index" yields /notes/<id>/embed/; Hugo `path` would prefix the URL instead). Theme config is not merged into consuming sites, so copy this block.
+[outputFormats.embed]
+  mediaType = "text/html"
+  baseName = "embed/index"
+  notAlternative = true
+  isHTML = true

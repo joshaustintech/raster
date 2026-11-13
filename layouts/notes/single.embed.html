@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="{{ site.Language.Locale | default "en" }}">
+<head>
+  {{- partial "head/head.html" . }}
+  <meta name="robots" content="noindex">
+</head>
+<body>
+  {{ partial "card-post.html" (dict "page" . "embed" true) }}
+</body>
+</html>
