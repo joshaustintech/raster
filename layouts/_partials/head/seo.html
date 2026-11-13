@@ -1,0 +1,45 @@
+{{- /* SEO: description, Open Graph, Twitter card, JSON-LD. No og:image here: notes get theirs from head/og-note.html. */ -}}
+{{- $author := site.Params.author.name | default site.Title -}}
+{{- $desc := cond (.IsHome) (site.Params.description | default "") (.Description | default .Summary | default (site.Params.description | default "")) | plainify | truncate 200 | htmlUnescape -}}
+{{- $isPost := and .IsPage (in (slice "writing" "notes") .Section) -}}
+{{- $title := cond .IsHome site.Title .Title -}}
+{{- with $desc }}
+<meta name="description" content="{{ . }}">
+{{- end }}
+<meta property="og:site_name" content="{{ site.Title }}">
+<meta property="og:title" content="{{ $title }}">
+{{- with $desc }}
+<meta property="og:description" content="{{ . }}">
+{{- end }}
+<meta property="og:type" content="{{ cond $isPost "article" "website" }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:locale" content="{{ site.Language.Locale | default site.Language.Lang | replaceRE "-" "_" }}">
+{{- if $isPost }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+{{- end }}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ $title }}">
+{{- with $desc }}
+<meta name="twitter:description" content="{{ . }}">
+{{- end }}
+{{- range .AllTranslations }}
+{{- if ne .Language.Lang $.Language.Lang }}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{- end }}
+{{- end }}
+{{- $sameAs := slice }}
+{{- range site.Params.social }}{{ with .url }}{{ $sameAs = $sameAs | append . }}{{ end }}{{ end }}
+{{- $person := dict "@type" "Person" "name" $author "url" site.Home.Permalink }}
+{{- if $sameAs }}{{ $person = merge $person (dict "sameAs" $sameAs) }}{{ end }}
+{{- $ld := slice }}
+{{- if .IsHome }}
+{{- $ld = $ld | append (dict "@context" "https://schema.org" "@type" "WebSite" "name" site.Title "url" site.Home.Permalink "description" (site.Params.description | default "") "inLanguage" site.Language.Lang) }}
+{{- $ld = $ld | append (merge $person (dict "@context" "https://schema.org")) }}
+{{- else if $isPost }}
+{{- $post := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "url" .Permalink "mainEntityOfPage" .Permalink "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00") "author" $person "inLanguage" site.Language.Lang }}
+{{- with $desc }}{{ $post = merge $post (dict "description" .) }}{{ end }}
+{{- $ld = $ld | append $post }}
+{{- end }}
+{{- range $ld }}
+<script type="application/ld+json">{{ . }}</script>
+{{- end }}
