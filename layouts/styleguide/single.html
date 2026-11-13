@@ -1,0 +1,62 @@
+{{- /* Dev-only styleguide: every component and variant from the real partials. Not linked; noindex via front matter.
+       Signal budget: exactly one signal element (the signal Button). Check in the console:
+       document.querySelectorAll('[class*="--signal"]').length <= 1 (limit also exposed as data-signal-max on #styleguide).
+       Article's h1 is demoted to h2 here so the page keeps a single h1 (the Hero). */ -}}
+{{ define "main" }}
+{{- $p := . -}}
+{{- $note := $p.Resources.GetMatch "note-text*" -}}
+{{- $large := $p.Resources.GetMatch "note-large*" -}}
+{{- $art := $p.Resources.GetMatch "article-sample*" -}}
+<div id="styleguide" data-signal-max="1">
+{{ partial "hero.html" . }}
+<div class="rs-wrap" id="components">
+  {{ partial "speclist.html" .Params.facts }}
+  {{ partial "section.html" (dict "num" 1 "total" 8 "eyebrow" "Navigation" "title" "Nav, Footer" "intro" "Nav and Footer are rendered by the page shell above and below this content.") }}
+  {{ partial "section.html" (dict "num" 2 "total" 8 "eyebrow" "Actions" "title" "Buttons") }}
+  <div class="rs-actions">
+    {{ partial "button.html" (dict "label" "Get in touch" "href" "#components" "variant" "primary") }}
+    {{ partial "button.html" (dict "label" "Download résumé" "href" "#components" "variant" "secondary") }}
+    {{ partial "button.html" (dict "label" "Read the case study" "href" "#components" "variant" "signal" "arrow" true) }}
+    {{ partial "button.html" (dict "label" "All writing" "href" "#components" "variant" "text") }}
+    <button class="rs-btn rs-btn--primary" type="button" disabled>Unavailable</button>
+  </div>
+  {{ partial "section.html" (dict "num" 3 "total" 8 "eyebrow" "Section header" "title" "Rebuilding the job queue" "intro" "Two billion jobs a day moved onto Postgres, with no downtime.") }}
+  {{ partial "section.html" (dict "num" 4 "total" 8 "eyebrow" "Full bleed" "title" "Scrim and band") }}
+</div>
+{{ partial "fullbleed.html" (dict "alt" "Placeholder cover" "eyebrow" "Case study" "title" "Full bleed with scrim" "lede" "Image, scrim and content on the grid." "action" (dict "label" "Read it" "href" "#components") "heading" "h3") }}
+{{ partial "fullbleed.html" (dict "alt" "Placeholder band" "band" true "eyebrow" "Band" "title" "Full bleed band" "heading" "h3") }}
+<div class="rs-wrap">
+  {{ partial "section.html" (dict "num" 5 "total" 8 "eyebrow" "Content" "title" "Figure, Quote, Aside") }}
+  <div class="rs-cols">
+    {{ partial "figure.html" (dict "alt" "Placeholder 3:2" "ratio" "3x2" "caption" "Default figure." "num" "Fig. 01") }}
+    {{ partial "figure.html" (dict "alt" "Placeholder wide 16:9" "ratio" "16x9" "width" "wide" "caption" "Wide figure.") }}
+    {{ partial "figure.html" (dict "alt" "Placeholder full 21:9" "ratio" "21x9" "width" "full" "caption" "Full figure.") }}
+    {{ partial "quote.html" (dict "text" "Boring technology is a feature." "who" "Sam Okafor" "source" "Platform lead") }}
+    {{ partial "aside.html" (dict "label" "Note" "body" "<p>Default aside.</p>") }}
+    {{ partial "aside.html" (dict "label" "Field note" "field" true "body" "<p>Field variant aside.</p>") }}
+  </div>
+  {{ partial "section.html" (dict "num" 6 "total" 8 "eyebrow" "Cards" "title" "Link, post") }}
+  <div class="rs-cols">
+    {{ partial "card-link.html" (dict "page" $p "kicker" "Work" "index" 1 "total" 4 "summary" "A link card with kicker, summary and meta." "meta" (slice "2026" "Platform")) }}
+    {{ with $note }}{{ partial "card-post.html" (dict "page" .) }}{{ end }}
+    {{ with $large }}{{ partial "card-post.html" (dict "page" . "large" true) }}{{ end }}
+    {{ with $note }}{{ partial "card-post.html" (dict "page" . "embed" true) }}{{ end }}
+  </div>
+  {{ partial "section.html" (dict "num" 7 "total" 8 "eyebrow" "Forms" "title" "Form, error state") }}
+  {{- /* Static markup from reference/Card.html (error state); the real card-form partial is rendered on /about/. */}}
+  <div class="rs-cols">
+    <section class="rs-card rs-card--raised" aria-labelledby="sg-form-title">
+      <div class="rs-card__body">
+        <div class="rs-card__head"><p class="rs-eyebrow">Contact</p><h3 class="rs-card__title" id="sg-form-title">Form with an error</h3></div>
+        <form class="rs-form" action="#form-error" method="post" novalidate id="form-error">
+          <div class="rs-field"><label class="rs-label" for="f-email">Email</label><input class="rs-input" id="f-email" type="email" autocomplete="email" value="sam@" aria-invalid="true" aria-describedby="f-email-err"><p class="rs-error" id="f-email-err">Error: enter a full email address.</p></div>
+          <div class="rs-form__foot"><button class="rs-btn rs-btn--primary" type="submit">Send message</button></div>
+        </form>
+      </div>
+    </section>
+  </div>
+  {{ partial "section.html" (dict "num" 8 "total" 8 "eyebrow" "Article" "title" "Long-form body") }}
+</div>
+{{ with $art }}{{ partial "article.html" . | replaceRE `<h1 class="rs-t-display">(.*?)</h1>` `<h2 class="rs-t-display">${1}</h2>` | safeHTML }}{{ end }}
+</div>
+{{ end }}
