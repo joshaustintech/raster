@@ -1,0 +1,17 @@
+{{- /* Writing index: Hero (title) · per-year Section header + link-card grid · pager. Cards carry no image. */ -}}
+{{ define "main" }}
+{{ partial "hero.html" . }}
+<div class="rs-wrap">
+  {{- $pag := .Paginate (.Pages.GroupByDate "2006") -}}
+  {{- $total := len $pag.PageGroups -}}
+  {{- range $i, $g := $pag.PageGroups }}
+  {{ partial "section.html" (dict "num" (add $i 1) "total" $total "eyebrow" "Writing" "title" $g.Key) }}
+  <div class="rs-cols rs-card-grid">
+    {{- range $g.Pages }}
+    {{ partial "card-link.html" (dict "page" . "kicker" "Writing" "meta" (slice (.Date.Format "2 Jan 2006") (printf "%d min" .ReadingTime))) }}
+    {{- end }}
+  </div>
+  {{- end }}
+  {{ partial "pager.html" $pag }}
+</div>
+{{ end }}

@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{ partial "hero.html" . }}
+<div class="rs-wrap">
+  {{- $pag := .Paginate .Pages -}}
+  <div class="rs-cols rs-card-grid">
+    {{- range $pag.Pages }}
+    {{ partial "card-link.html" (dict "page" . "kicker" (.Section | title) "meta" (slice (.Date.Format "2 Jan 2006"))) }}
+    {{- end }}
+  </div>
+  {{ partial "pager.html" $pag }}
+</div>
+{{ end }}

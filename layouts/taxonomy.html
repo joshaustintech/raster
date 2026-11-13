@@ -1,0 +1,9 @@
+{{- /* Taxonomy index: plain term list with .rs-tag. Off by default (disableKinds). */ -}}
+{{ define "main" }}
+<div class="rs-wrap"><div class="rs-cols rs-article__body">
+  <h1 class="rs-t-display">{{ .Title }}</h1>
+  <ul class="rs-actions">
+    {{- range .Data.Terms.Alphabetical }}<li><a class="rs-tag rs-tag--quiet" href="{{ .Page.RelPermalink }}">{{ .Page.Title }} {{ .Count }}</a></li>{{ end }}
+  </ul>
+</div></div>
+{{ end }}

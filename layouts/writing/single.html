@@ -1,0 +1,12 @@
+{{- /* Post: Article · Aside "Related" with up to 2 link cards. */ -}}
+{{ define "main" }}
+{{ partial "article.html" . }}
+{{- $rel := first 2 (where (site.RegularPages.Related .) "Section" "writing") -}}
+{{- with $rel }}
+{{- $html := "" -}}
+{{- range . }}{{ $html = print $html (partial "card-link.html" (dict "page" . "kicker" "Writing" "meta" (slice (.Date.Format "2 Jan 2006") (printf "%d min" .ReadingTime)))) }}{{ end }}
+<div class="rs-wrap"><div class="rs-cols">
+  {{ partial "aside.html" (dict "label" "Related" "body" $html) }}
+</div></div>
+{{- end }}
+{{ end }}
