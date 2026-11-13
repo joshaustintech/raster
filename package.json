@@ -6,7 +6,9 @@
   "scripts": {
     "tokens": "node scripts/build-tokens.mjs",
     "tokens:check": "node scripts/build-tokens.mjs --check",
-    "parity": "node scripts/parity/parity.mjs"
+    "parity": "node scripts/parity/parity.mjs",
+    "a11y": "node scripts/a11y/check.mjs",
+    "a11y:keyboard": "node scripts/a11y/keyboard.mjs"
   },
   "devDependencies": {
     "axe-core": "^4.14.0",

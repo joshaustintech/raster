@@ -63,3 +63,12 @@ body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(
 .rs-c { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
 .rs-c > main { flex: 1 0 auto; }
 .rs-footer .rs-btn--text { padding-inline: 0; }
+
+/* Footer group headings are h2 (heading order after the page h1); same look as raster.css .rs-footer__group h3. */
+.rs-footer__group h2 { margin: 0 0 var(--space-1); font: 600 .6875rem/1rem var(--font-text); letter-spacing: .06em; text-transform: uppercase; color: var(--night-muted); }
+
+/* 44px touch targets (IMPLEMENTING.md). raster.css buttons and nav links are 40px; enlarge here, tokens/sizes only. */
+.rs-btn { min-height: 44px; }
+.rs-nav__mark { display: inline-flex; align-items: center; min-height: 44px; }
+.rs-nav__links a { display: flex; align-items: center; min-height: 44px; box-sizing: border-box; padding-block: 0; }
+.rs-post__time::after { content: ""; position: absolute; inset: calc(var(--space-1) * -1.25) calc(var(--space-1) * -.5); }

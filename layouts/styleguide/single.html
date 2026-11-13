@@ -44,7 +44,7 @@
     {{ with $note }}{{ partial "card-post.html" (dict "page" .) }}{{ end }}
     {{ with site.GetPage "/notes/diagram" }}{{ partial "card-post.html" (dict "page" .) }}{{ end }}
     {{ with $large }}{{ partial "card-post.html" (dict "page" . "large" true) }}{{ end }}
-    {{ with $note }}{{ partial "card-post.html" (dict "page" . "embed" true) }}{{ end }}
+    {{ with site.GetPage "/notes/two-lines" }}{{ partial "card-post.html" (dict "page" . "embed" true) }}{{ end }}
   </div>
   {{ partial "section.html" (dict "num" 7 "total" 8 "eyebrow" "Forms" "title" "Form, error state") }}
   {{- /* Static markup from reference/Card.html (error state); the real card-form partial is rendered on /about/. */}}

@@ -5,6 +5,8 @@
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="preload" href="{{ "fonts/inter-tight-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{{ "fonts/ibm-plex-mono-latin-400-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{- /* Favicon: params.favicon (path under static/ or assets) or an empty data URI so browsers do not request /favicon.ico (a console 404). */}}
+<link rel="icon" href="{{ with site.Params.favicon }}{{ . | relURL }}{{ else }}data:,{{ end }}">
 {{ partial "head/css.html" . }}
 {{ partial "head/theme.html" . }}
 {{ partial "head/feeds.html" . }}

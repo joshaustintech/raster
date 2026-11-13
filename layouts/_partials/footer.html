@@ -1,4 +1,4 @@
-{{- /* Footer. Inputs: menus.footer (parent entries = groups, children = links), params.footer.statement, params.footer.legal / legalExtra. */ -}}
+{{- /* Footer (group headings are h2 so they never skip a level after the page h1; reference/Footer.html uses h3, styled identically in extensions). Inputs: menus.footer (parent entries = groups, children = links), params.footer.statement, params.footer.legal / legalExtra. */ -}}
 <footer class="rs-footer"><div class="rs-wrap">
   <div class="rs-cols rs-footer__grid">
     {{- with site.Params.footer.statement }}
@@ -6,7 +6,7 @@
     {{- end }}
     {{- range site.Menus.footer }}
     {{- if .Children }}
-    <nav class="rs-footer__group" aria-label="{{ .Name }}"><h3>{{ .Name }}</h3><ul>{{ range .Children }}<li><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}</ul></nav>
+    <nav class="rs-footer__group" aria-label="{{ .Name }}"><h2>{{ .Name }}</h2><ul>{{ range .Children }}<li><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}</ul></nav>
     {{- end }}
     {{- end }}
   </div>

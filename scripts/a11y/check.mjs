@@ -34,9 +34,8 @@ for (const path of [...pages, ...extra]) for (const theme of ["light", "dark"]) 
   await page.goto(origin + path, { waitUntil: "networkidle" });
   await page.evaluate(axeSrc + ";0");
   const res = await page.evaluate(() => axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"] } }));
-  // Documented exceptions (reference markup is mandated): footer h3 groups can follow an h1 directly; unlabeled asides repeat.
+  // Documented exception (reference markup is mandated): unlabeled asides repeat.
   for (const v of res.violations) {
-    if (v.id === "heading-order" && v.nodes.every(n => n.target.join(" ").includes("h3") || n.html.startsWith("<h3"))) continue;
     if (v.id === "landmark-unique" && v.nodes.every(n => n.html.startsWith("<aside"))) continue;
     problems.push(`axe ${v.id} (${v.impact}): ${v.nodes.slice(0, 3).map(n => n.target.join(" ")).join(" | ")}`); }
   if (w === 375) {
