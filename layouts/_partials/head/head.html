@@ -1,0 +1,8 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="preload" href="{{ "fonts/inter-tight-latin-wght-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ "fonts/ibm-plex-mono-latin-400-normal.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
+{{ partial "head/css.html" . }}

@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="{{ site.Language.Locale | default "en" }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
-  {{ partial "head/css.html" . }}
+  {{- partial "head/head.html" . }}
 </head>
 <body>
   <div class="rs-c">
+    <a class="rs-skip" href="#main">{{ i18n "skip" }}</a>
+    {{ partial "nav.html" . -}}
     <main id="main">{{ block "main" . }}{{ end }}</main>
+    {{ partial "footer.html" . -}}
   </div>
 </body>
 </html>

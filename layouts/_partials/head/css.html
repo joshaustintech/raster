@@ -1,2 +1,3 @@
-{{- $css := slice (resources.Get "css/fonts.css") (resources.Get "css/tokens.css") (resources.Get "css/raster.css") | resources.Concat "css/raster.bundle.css" | minify | fingerprint -}}
+{{- $parts := slice (resources.Get "css/fonts.css") (resources.Get "css/tokens.css") (resources.Get "css/raster.css") (resources.Get "css/raster-extensions.css") -}}
+{{- $css := $parts | resources.Concat "css/raster.bundle.css" | minify | fingerprint -}}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">

@@ -1,0 +1,20 @@
+/* Raster theme extensions. Token-only; gaps in raster.css live here (see spec §3). */
+.rs-skip { position: absolute; left: var(--space-2); top: -64px; z-index: 20; padding: var(--space-2) var(--space-3); background: var(--ink); color: var(--paper); }
+.rs-skip:focus { top: var(--space-2); }
+
+.rs-c [id] { scroll-margin-top: 80px; }
+
+.rs-article ul, .rs-article ol { padding-inline-start: var(--space-4); margin-block: 0 var(--space-3); }
+.rs-article li { margin-block: 0; }
+.rs-article table { width: 100%; border-collapse: collapse; margin-block: 0 var(--space-3); font-size: .875rem; line-height: 1.5rem; }
+.rs-article th, .rs-article td { text-align: left; padding: var(--space-1) var(--space-2); border-bottom: 1px solid var(--rule); }
+.rs-article th { font-family: var(--font-mono); font-weight: 500; }
+.rs-article hr { border: 0; border-top: 1px solid var(--rule); margin-block: var(--space-6); }
+.rs-article h3, .rs-article h4 { font-family: var(--font-display); line-height: 1.5rem; margin-block: var(--space-4) var(--space-1); }
+.rs-article h3 { font-size: 1.25rem; }
+.rs-article h4 { font-size: 1rem; }
+
+@media print {
+  .rs-nav, .rs-footer, .rs-skip { display: none !important; }
+  .rs-article a[href^="http"]::after { content: " (" attr(href) ")"; font-family: var(--font-mono); font-size: .8125rem; }
+}
