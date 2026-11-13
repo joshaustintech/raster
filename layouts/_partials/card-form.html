@@ -1,10 +1,10 @@
-{{- /* Inputs: page context (.) ; reads site.Params.contact: action, eyebrow, title, text, note, submit, company(bool), newsletter(string) */ -}}
+{{- /* Inputs: page context (.) ; reads site.Params.contact: action, js(bool, default true), eyebrow, title, text, note, submit, company(bool), newsletter(string) */ -}}
 {{- $c := site.Params.contact | default dict -}}
 {{- $action := $c.action | default (printf "mailto:%s" (site.Params.author.email | default "")) -}}
 <section class="rs-card rs-card--raised" aria-labelledby="contact-title">
   <div class="rs-card__body">
     <div class="rs-card__head"><p class="rs-eyebrow">{{ $c.eyebrow | default "Contact" }}</p><h2 class="rs-card__title" id="contact-title">{{ $c.title | default "Start a conversation" }}</h2>{{ with $c.text }}<p class="rs-card__text">{{ . }}</p>{{ end }}</div>
-    <form class="rs-form" action="{{ $action | safeURL }}" method="post"{{ if hasPrefix $action "mailto:" }} enctype="text/plain"{{ end }}>
+    <form class="rs-form" data-rs-form action="{{ $action | safeURL }}" method="post"{{ if hasPrefix $action "mailto:" }} enctype="text/plain"{{ end }}>
       <div class="rs-form__row rs-form__row--2">
         <div class="rs-field"><label class="rs-label" for="f-name">Name</label><input class="rs-input" id="f-name" name="name" autocomplete="name" required></div>
         <div class="rs-field"><label class="rs-label" for="f-email">Email</label><input class="rs-input" id="f-email" name="email" type="email" autocomplete="email" required></div>
@@ -20,3 +20,4 @@
     </form>
   </div>
 </section>
+{{- if ne $c.js false }}{{ with resources.Get "js/form.js" }}{{ with . | minify | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>{{ end }}{{ end }}{{ end }}
