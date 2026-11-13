@@ -1,0 +1,43 @@
+{{- /* Returns a 1200x630 image resource for a note (ADR-0002). Context: note page.
+       Falls back to a default card (author only) when text has non-ASCII/emoji; front matter `image:` wins. */ -}}
+{{- $page := . -}}
+{{- $author := $page.Params.author | default site.Params.author.name | default site.Title -}}
+{{- $text := $page.Plain | strings.TrimSpace | replaceRE `\s+` " " -}}
+{{- $custom := $page.Params.image -}}
+{{- if $custom -}}
+  {{- $r := or ($page.Resources.GetMatch $custom) (resources.Get $custom) -}}
+  {{- if $r -}}{{- return ($r.Fill "1200x630 center") -}}{{- end -}}
+{{- end -}}
+{{- $ascii := not (findRE `[^\x20-\x7E]` $text) -}}
+{{- $sans := resources.Get "og/InterTight-Variable.ttf" -}}
+{{- $mono := resources.Get "og/IBMPlexMono-Medium.ttf" -}}
+{{- $base := resources.FromString "og/paper.png" ("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4/PE1AAWqAtDFp5LDAAAAAElFTkSuQmCC" | base64Decode) -}}
+{{- $img := $base.Process "resize 1200x630" -}}
+{{- $ink := "#151515" -}}
+{{- $img = $img.Filter (images.Text (upper $author) (dict "font" $mono "size" 28 "color" "#64625c" "x" 80 "y" 72)) -}}
+{{- if and $ascii $text -}}
+  {{- $max := 36 -}}
+  {{- $words := split $text " " -}}
+  {{- $lines := slice -}}
+  {{- $cur := "" -}}
+  {{- range $words -}}
+    {{- if and $cur (gt (len (printf "%s %s" $cur .)) $max) -}}
+      {{- $lines = $lines | append $cur -}}{{- $cur = . -}}
+    {{- else -}}
+      {{- $cur = strings.TrimSpace (printf "%s %s" $cur .) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $lines = $lines | append $cur -}}
+  {{- if gt (len $lines) 6 -}}
+    {{- $lines = first 6 $lines -}}
+    {{- $last := index $lines 5 -}}
+    {{- $lines = (first 5 $lines) | append ((substr $last 0 (sub (len $last) 3)) | printf "%s...") -}}
+  {{- end -}}
+  {{- range $i, $l := $lines -}}
+    {{- $img = $img.Filter (images.Text $l (dict "font" $sans "size" 56 "color" $ink "x" 80 "y" (add 150 (mul $i 72)))) -}}
+  {{- end -}}
+{{- else -}}
+  {{- $img = $img.Filter (images.Text site.Title (dict "font" $sans "size" 72 "color" $ink "x" 80 "y" 150)) -}}
+{{- end -}}
+{{- $img = $img.Filter (images.Text (printf "%s" (strings.TrimPrefix "https://" (strings.TrimPrefix "http://" site.BaseURL))) (dict "font" $mono "size" 24 "color" "#64625c" "x" 80 "y" 560)) -}}
+{{- return ($img | resources.Copy (printf "og/%s.png" ($page.File.ContentBaseName | default "note"))) -}}
