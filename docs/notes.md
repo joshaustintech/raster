@@ -43,3 +43,5 @@ addEventListener("message", function (e) {
 - The site publishes an optional JSON Feed 1.1 at `/feed.json` (`layouts/home.jsonfeed.json`, writing and notes, newest 50).
 - `head/feeds.html` emits the `<link rel="alternate">` tags (the page's own feeds plus the site feeds).
 - Theme config is not merged, so copy the `atom` and `jsonfeed` output formats, the two media types and the `[outputs]` block from `exampleSite/hugo.toml`. The atom format needs `isPlainText = true`, otherwise Hugo HTML-escapes the XML declaration. Opt the notes section in with `outputs: [html, rss, atom]` in `content/notes/_index.md`.
+
+See also: [Installation](installation.md), [Content](content.md), [Configuration](configuration.md), [Deployment](deployment.md#headers-for-embeds).

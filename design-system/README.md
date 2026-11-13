@@ -81,7 +81,7 @@ Short (120–200ms), linear or ease-out, opacity and position only. Nothing boun
 - Layout: `grid-columns`, `grid-gutter`, `grid-margin`, `grid-field`.
 - Corners: `radius-0` everywhere; `radius-full` only for status dots.
 - Text on photographs: `night-ink` over the `scrim`, or the text on a `paper` band. Fixed-dark grounds (footer): `night`, `night-ink`, `night-muted`.
-- Component classes (`rs-*`) live in `components/bundle.css`; they are plain CSS with no script. Put `.rs-c` on the page root so components can size to their container.
+- Component classes (`rs-*`) live in `css/raster.css`; they are plain CSS with no script. Put `.rs-c` on the page root so components can size to their container.
 
 ## Building a page
 

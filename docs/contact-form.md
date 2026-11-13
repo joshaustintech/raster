@@ -7,3 +7,5 @@ Without JS the browser's native validation (`required`, `type=email`) runs. With
 ## Opt-in third-party providers
 
 A hosted endpoint (for example Formspree `https://formspree.io/f/<id>` or Basin `https://usebasin.com/f/<id>`) can be used by setting `params.contact.action` to its URL. This is opt-in and the only third-party contact happens when the visitor submits: the page itself loads no third-party script, font or image, and no request is made on page load. Mention the provider in your privacy note, since the visitor's message goes to them. Do not use provider JavaScript snippets; the plain HTML POST is enough.
+
+See also: [Configuration](configuration.md#contact-about-page-form), [Content](content.md).
