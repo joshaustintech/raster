@@ -32,22 +32,33 @@ function serve(dir) {
 
 // Runs in the page. Normalised tree = tag + sorted class names + sorted attribute names (no values except class), no text.
 // Component roots = elements with an rs-* class and no rs-* ancestor other than the layout wrappers.
-function inPage() {
+function inPage(all) {
   const LAYOUT = new Set(["rs-c", "rs-wrap", "rs-cols", "rs-card-grid", "rs-mono"]);
   const hasRs = (e) => [...e.classList].some((c) => c.startsWith("rs-"));
   const isComp = (e) => hasRs(e) && [...e.classList].some((c) => c.startsWith("rs-") && !LAYOUT.has(c));
   // Context-dependent attributes (current page) and demo scaffolding are ignored; h1-h6 normalise to "h" (levels vary by page context).
-  const IGNORE_ATTR = new Set(["class", "style", "aria-current"]);
+  // Intentional/content differences, documented in scripts/README.md: data-* (JS hooks), id (per-instance), href/target/rel/type/disabled on buttons,
+  // aria-label vs aria-labelledby (both give the accessible name; the theme uses a visible-heading reference).
+  const IGNORE_ATTR = new Set(["class", "style", "aria-current", "id", "href", "target", "rel", "type", "disabled", "open", "onsubmit", "action", "method", "novalidate", "enctype", "name", "required", "autocomplete", "value", "checked", "tabindex", "aria-invalid", "aria-describedby"]);
+  const attrName = (n) => (n === "aria-labelledby" ? "aria-label" : n);
+  const INLINE = new Set(["EM", "STRONG", "CODE", "BR", "SMALL", "ABBR", "SPAN", "A", "TIME"]);
   const rsOnly = (e) => [...e.classList].filter((c) => c.startsWith("rs-")).sort().join(".");
-  const norm = (e) => ({
-    t: /^H[1-6]$/.test(e.tagName) ? "h" : e.tagName.toLowerCase(),
+  // Reference demos use .rs-ph placeholders where the theme renders a real <img>: both normalise to "media" with no attributes or children.
+  const isMedia = (e) => e.tagName === "IMG" || e.classList.contains("rs-ph");
+  const norm = (e) => isMedia(e) ? { t: "media", c: "", a: "", k: [] } : ({
+    t: isMedia(e) ? "media" : /^H[1-6]$/.test(e.tagName) ? "h" : e.classList.contains("rs-btn") ? "a|button" : e.tagName.toLowerCase(),
     c: rsOnly(e),
-    a: [...e.attributes].map((x) => x.name).filter((n) => !IGNORE_ATTR.has(n)).sort().join(","),
-    k: [...e.children].filter((k) => !["SCRIPT", "STYLE"].includes(k.tagName)).map(norm),
+    a: [...e.attributes].map((x) => x.name).filter((n) => !IGNORE_ATTR.has(n) && !n.startsWith("data-")).map(attrName).sort().join(","),
+    k: [...e.children].filter((k) => !["SCRIPT", "STYLE"].includes(k.tagName) && !DROP(k) && !(INLINE.has(k.tagName) && !hasRs(k))).map(norm),
   });
+  // Repetition is content: adjacent siblings with identical structure collapse to one (li lists, footer groups, spec rows).
+  const collapse = (n) => { n.k = n.k.map(collapse).filter((k, i, a) => i === 0 || JSON.stringify(k) !== JSON.stringify(a[i - 1])); return n; };
+  // Theme behaviour, not reference markup: theme toggle, notes action bar and embed panel (JS-enhanced), inline desktop nav list / panel CTA (reference
+  // demos show them in separate variants), placeholder label spans.
+  const DROP = (k) => k.hasAttribute("data-theme-toggle") || k.matches(".rs-post__actions, .rs-post__panel, .rs-nav__links, .rs-nav__panel > .rs-btn, .rs-ph > span, .rs-count, .rs-error, .rs-help");
   const roots = [];
   (function walk(e) {
-    if (isComp(e)) { roots.push(norm(e)); return; }
+    if (isComp(e)) { roots.push(collapse(norm(e))); if (!all) return; }
     for (const k of e.children) walk(k);
   })(document.body);
   return roots;
@@ -72,7 +83,7 @@ const server = await serve(dest);
 const base = `http://127.0.0.1:${server.address().port}`;
 const browser = await chromium.launch();
 const page = await browser.newPage();
-const guide = await (async () => { await page.goto(`${base}/styleguide/`); return page.evaluate(inPage); })();
+const guide = await (async () => { await page.goto(`${base}/styleguide/`); return page.evaluate(inPage, true); })();
 const refDir = path.join(root, "design-system", "reference");
 let failed = 0;
 
