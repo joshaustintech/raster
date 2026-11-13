@@ -1,0 +1,26 @@
+{{ define "main" }}
+{{- $c := .Params.cover | default dict }}
+{{- $img := cond (ne ($c.image | default "") "") (.Resources.Get $c.image | default (resources.Get $c.image)) nil }}
+{{ partial "fullbleed.html" (dict "image" $img "alt" ($c.alt | default "") "focal" $c.focal "eyebrow" (.Params.eyebrow | default "Case study") "title" .Title "lede" (.Params.lede | default .Description) "heading" "h1") }}
+{{- with .Params.facts }}
+<div class="rs-wrap">{{ partial "speclist.html" . }}</div>
+{{- end }}
+<article class="rs-article"><div class="rs-wrap">
+  <div class="rs-cols rs-article__body">
+    {{ .Content }}
+  </div>
+</div></article>
+{{- $all := .CurrentSection.RegularPages }}
+{{- $next := "" }}
+{{- with .Params.next }}{{ $next = site.GetPage . }}{{ else }}
+  {{- $self := .RelPermalink }}
+  {{- range $i, $q := $all }}{{ if eq $q.RelPermalink $self }}{{ $next = index $all (mod (add $i 1) (len $all)) }}{{ end }}{{ end }}
+{{- end }}
+{{- if and $next (ne $next.RelPermalink .RelPermalink) }}
+{{- $nc := $next.Params.cover | default dict }}
+{{- $nimg := cond (ne ($nc.image | default "") "") ($next.Resources.Get $nc.image | default (resources.Get $nc.image)) nil }}
+<div class="rs-wrap rs-cols rs-card-grid">
+  {{ partial "card-link.html" (dict "page" $next "kicker" "Next project" "image" $nimg "alt" ($nc.alt | default "")) }}
+</div>
+{{- end }}
+{{ end }}

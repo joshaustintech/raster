@@ -1,0 +1,7 @@
+{{ define "main" }}
+{{- $all := .RegularPages }}
+<div class="rs-wrap">
+  {{ partial "section.html" (dict "num" 1 "total" 1 "eyebrow" (.Params.eyebrow | default "Work") "title" .Title "intro" (.Params.lede | default .Description)) }}
+</div>
+{{ partial "work-cards.html" (dict "pages" $all "all" $all "heading" "h2") }}
+{{ end }}

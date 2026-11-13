@@ -1,0 +1,13 @@
+{{- /* Work link cards. Input (dict): pages (subset to show), all (full ordered work list, for NN / NN numbering), heading (default h3). Emits .rs-wrap.rs-cols.rs-card-grid. */ -}}
+{{- $all := .all -}}
+{{- $total := len $all -}}
+<div class="rs-wrap rs-cols rs-card-grid">
+  {{- range .pages }}
+  {{- $p := . }}
+  {{- $idx := 0 }}{{ range $i, $q := $all }}{{ if eq $q.RelPermalink $p.RelPermalink }}{{ $idx = add $i 1 }}{{ end }}{{ end }}
+  {{- $c := $p.Params.cover | default dict }}
+  {{- $img := cond (ne ($c.image | default "") "") ($p.Resources.Get $c.image | default (resources.Get $c.image)) nil }}
+  {{- $meta := slice }}{{ with $p.Params.year }}{{ $meta = $meta | append (string .) }}{{ end }}{{ with $p.Params.stack }}{{ $meta = $meta | append (delimit . " · ") }}{{ end }}
+  {{ partial "card-link.html" (dict "page" $p "kicker" "Work" "index" $idx "total" $total "image" $img "alt" ($c.alt | default "") "meta" $meta "heading" ($.heading | default "h3")) }}
+  {{- end }}
+</div>

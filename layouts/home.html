@@ -1,1 +1,26 @@
-{{ define "main" }}<h1>{{ site.Title }}</h1>{{ end }}
+{{ define "main" }}
+{{ partial "hero.html" . }}
+{{- with .Params.facts }}
+<div class="rs-wrap">{{ partial "speclist.html" . }}</div>
+{{- end }}
+{{- $work := site.GetPage "/work" }}
+{{- with $work }}
+{{- $all := .RegularPages }}
+{{- $feat := where $all "Params.featured" true | first 3 }}
+{{- if $feat }}
+<div class="rs-wrap">
+  {{ partial "section.html" (dict "num" 1 "total" 2 "eyebrow" "Work" "title" "Selected work") }}
+</div>
+{{ partial "work-cards.html" (dict "pages" $feat "all" $all) }}
+{{- end }}
+{{- end }}
+{{- $notes := where site.RegularPages "Section" "notes" | first 3 }}
+{{- if $notes }}
+<div class="rs-wrap">
+  {{ partial "section.html" (dict "num" 2 "total" 2 "eyebrow" "Notes" "title" "Recent notes") }}
+</div>
+<div class="rs-wrap rs-cols"><div class="rs-feed">
+  {{- range $notes }}{{ partial "card-post.html" (dict "page" .) }}{{ end }}
+</div></div>
+{{- end }}
+{{ end }}
