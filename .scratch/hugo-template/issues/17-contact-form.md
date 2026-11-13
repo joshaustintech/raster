@@ -1,6 +1,6 @@
 # 17. Contact form behaviour
 
-Status: ready-for-agent
+Status: resolved
 Blocked by: 06
 Spec: ../spec.md
 
