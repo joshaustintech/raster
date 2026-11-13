@@ -1,0 +1,13 @@
+{{- /* Alternate feed links: this page's own feeds, then the site feed. */ -}}
+{{- $seen := slice -}}
+{{- range .AlternativeOutputFormats }}
+{{- if or (eq .MediaType.SubType "rss") (eq .MediaType.SubType "atom") (eq .MediaType.Type "application/feed+json") }}
+<link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Title }}">
+{{- $seen = $seen | append .Permalink }}
+{{- end }}
+{{- end }}
+{{- range site.Home.OutputFormats }}
+{{- if and (not (in $seen .Permalink)) (or (eq .MediaType.SubType "rss") (eq .MediaType.Type "application/feed+json")) }}
+<link rel="alternate" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">
+{{- end }}
+{{- end }}

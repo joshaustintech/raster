@@ -1,0 +1,6 @@
+{{- $pages := where site.RegularPages "Type" "in" (slice "writing" "notes") | first 50 -}}
+{{- $items := slice -}}
+{{- range $pages.ByDate.Reverse -}}
+  {{- $items = $items | append (dict "id" .Permalink "url" .Permalink "title" (.Title) "content_html" (string .Content) "date_published" (.Date.Format "2006-01-02T15:04:05Z07:00")) -}}
+{{- end -}}
+{{- dict "version" "https://jsonfeed.org/version/1.1" "title" site.Title "home_page_url" site.Home.Permalink "feed_url" (site.Home.OutputFormats.Get "jsonfeed").Permalink "items" $items | jsonify -}}

@@ -1,6 +1,22 @@
 baseURL = "https://example.org/"
 title = "Raster example"
 locale = "en"
+enableRobotsTXT = true
+
+[params]
+  description = "Notes, case studies and writing on building quiet systems."
+  [params.author]
+    name = "Avery Lin"
+    handle = "@avery"
+    email = "hello@example.org"
+  [[params.social]]
+    name = "GitHub"
+    url = "https://github.com/example"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
 [module]
   replacements = "github.com/joshaustintech/raster -> ../.."
   [[module.imports]]
@@ -43,3 +59,19 @@ locale = "en"
   baseName = "embed/index"
   notAlternative = true
   isHTML = true
+
+# Feeds: RSS (site + sections) is built in; Atom for Notes and JSON Feed for the site are custom formats. Copy these blocks.
+[outputFormats.atom]
+  mediaType = "application/atom+xml"
+  baseName = "atom"
+  isPlainText = true
+[outputFormats.jsonfeed]
+  mediaType = "application/feed+json"
+  baseName = "feed"
+[mediaTypes."application/feed+json"]
+  suffixes = ["json"]
+[mediaTypes."application/atom+xml"]
+  suffixes = ["xml"]
+[outputs]
+  home = ["html", "rss", "jsonfeed"]
+  section = ["html", "rss"]
