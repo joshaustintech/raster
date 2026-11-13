@@ -3,7 +3,7 @@ license = "MIT"
 licenselink = "https://github.com/joshaustintech/raster/blob/main/LICENSE"
 description = "A flush-left, grid-based portfolio, writing and notes theme."
 homepage = "https://github.com/joshaustintech/raster"
-min_version = "0.158.0"
+min_version = "0.169.0"
 tags = ["portfolio", "blog", "minimal", "dark mode", "responsive"]
 [author]
   name = "Josh Austin"

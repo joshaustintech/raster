@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Hugo **0.158.0 or later** (standard edition is enough; the extended edition is not needed). Check with `hugo version`.
+- Hugo **0.169.0 or later** (standard edition is enough; the extended edition is not needed). Check with `hugo version`.
 - **Git**, for the submodule route.
 - **Go**, for the Hugo Module route only (Hugo shells out to `go`). Install from <https://go.dev/dl/>.
 - No Node, npm or build step. Node is used only by contributors (see [CONTRIBUTING](../CONTRIBUTING.md)).

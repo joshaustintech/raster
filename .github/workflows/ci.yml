@@ -12,11 +12,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        hugo: ["0.158.0", "latest"]
+        hugo: ["0.169.0", "latest"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-        with: { go-version: stable }
+        with: { go-version: stable, cache: false }
       - uses: peaceiris/actions-hugo@v3
         with: { hugo-version: "${{ matrix.hugo }}", extended: true }
       - run: hugo version
@@ -28,9 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-        with: { go-version: stable }
+        with: { go-version: stable, cache: false }
       - uses: peaceiris/actions-hugo@v3
-        with: { hugo-version: "0.158.0", extended: true }
+        with: { hugo-version: "0.169.0", extended: true }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: npm }
       - run: npm ci
@@ -50,10 +50,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
-        with: { go-version: stable }
+        with: { go-version: stable, cache: false }
       - uses: peaceiris/actions-hugo@v3
-        with: { hugo-version: "0.158.0", extended: true }
-      - uses: actions/setup-java@v4
+        with: { hugo-version: "0.169.0", extended: true }
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: 21 }
       - run: hugo --gc --minify --source exampleSite --destination "$RUNNER_TEMP/public"
       - name: Validate

@@ -14,7 +14,7 @@ For contributors. See also the [ADRs](adr/) and `.scratch/hugo-template/spec.md`
 | `design-system/fonts` | `static/fonts` | self-hosted `.woff2`, served at `/fonts/` |
 | `assets`, `layouts`, `i18n`, `archetypes` | same | theme-owned files |
 
-`fonts.css` uses relative `../fonts/` URLs; the bundled CSS is emitted at `/css/`, so they resolve to `/fonts/`. Minimum Hugo version (`0.158.0`) is declared in `[module.hugoVersion]`. Mounts work when the theme is consumed as a Module or a theme directory (both tested).
+`fonts.css` uses relative `../fonts/` URLs; the bundled CSS is emitted at `/css/`, so they resolve to `/fonts/`. Minimum Hugo version (`0.169.0`) is declared in `[module.hugoVersion]`. Mounts work when the theme is consumed as a Module or a theme directory (both tested).
 
 ## CSS bundle order
 

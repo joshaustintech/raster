@@ -6,14 +6,17 @@ permissions: { contents: read, pages: write, id-token: write }
 concurrency: { group: pages, cancel-in-progress: true }
 jobs:
   build:
+    # Opt-in: enable Pages (Settings > Pages > Source: GitHub Actions), then set
+    # the repository variable DEPLOY_PAGES=true.
+    if: ${{ vars.DEPLOY_PAGES == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - uses: actions/setup-go@v5
-        with: { go-version: stable }
+        with: { go-version: stable, cache: false }
       - uses: peaceiris/actions-hugo@v3
-        with: { hugo-version: "0.158.0", extended: true }
+        with: { hugo-version: "0.169.0", extended: true }
       - id: pages
         uses: actions/configure-pages@v5
       - run: hugo --gc --minify --source exampleSite --destination "$RUNNER_TEMP/public" --baseURL "${{ steps.pages.outputs.base_url }}/"

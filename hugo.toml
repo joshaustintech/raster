@@ -1,7 +1,7 @@
 # Theme-level module config. Consumers import this module; mounts below apply.
 [module]
   [module.hugoVersion]
-    min = "0.158.0"
+    min = "0.169.0"
   [[module.mounts]]
     source = "design-system/css"
     target = "assets/css"

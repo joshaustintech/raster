@@ -16,7 +16,7 @@ Live example: the `exampleSite/` in this repo (fictional content). Screenshots a
 
 ## Quick start (about 5 minutes)
 
-Needs Hugo 0.158.0 or later, and Go for the module route. Full details in [docs/installation.md](docs/installation.md).
+Needs Hugo 0.169.0 or later, and Go for the module route. Full details in [docs/installation.md](docs/installation.md).
 
 ### Hugo Module
 

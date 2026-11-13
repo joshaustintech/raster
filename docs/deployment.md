@@ -25,7 +25,7 @@ concurrency: { group: pages, cancel-in-progress: true }
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: { HUGO_VERSION: "0.158.0" }
+    env: { HUGO_VERSION: "0.169.0" }
     steps:
       - uses: actions/checkout@v4
         with: { submodules: recursive, fetch-depth: 0 }
@@ -60,13 +60,13 @@ In the repository settings, set Pages source to "GitHub Actions". (This workflow
   command = "hugo --gc --minify"
   publish = "public"
 [build.environment]
-  HUGO_VERSION = "0.158.0"
+  HUGO_VERSION = "0.169.0"
   GO_VERSION = "1.22"
 ```
 
 ## Cloudflare Pages
 
-Build command `hugo --gc --minify`, output directory `public`, environment variable `HUGO_VERSION=0.158.0`.
+Build command `hugo --gc --minify`, output directory `public`, environment variable `HUGO_VERSION=0.169.0`.
 
 ## Any static host
 
@@ -86,3 +86,7 @@ Netlify / Cloudflare Pages `_headers` (place in `static/_headers`):
 ```
 
 The theme loads only first-party scripts (external files, no inline script), so a strict CSP such as `default-src 'self'` works, apart from `style-src`, which must allow the few `style` attributes the theme emits (the FullBleed focal point, and the iframe snippet text shown in the Embed panel is only displayed, not applied). A CSP was not tested against a built site; test yours.
+
+### Enabling the example-site deploy workflow
+
+`.github/workflows/pages.yml` is opt-in. In the repository settings choose **Pages > Source: GitHub Actions**, then add the repository variable `DEPLOY_PAGES` with value `true` (Settings > Secrets and variables > Actions > Variables). Until then the workflow is skipped.

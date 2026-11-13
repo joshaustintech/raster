@@ -25,7 +25,7 @@ git add themes/raster && git commit -m "Update Raster to v1.0.0"
 1. Build with `hugo --gc --minify` and read any warnings.
 2. Compare your `hugo.toml` against [Installation](installation.md#minimal-hugotoml); new releases may need new copy-paste blocks (output formats, markup), since Hugo does not merge theme config.
 3. If you override partials, diff them against the theme's versions; overrides do not receive upstream fixes.
-4. Raise your build's Hugo version to at least the theme's `min_version` (`theme.toml`, currently 0.158.0).
+4. Raise your build's Hugo version to at least the theme's `min_version` (`theme.toml`, currently 0.169.0).
 
 ## 1.0.0
 

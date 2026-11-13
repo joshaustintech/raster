@@ -4,7 +4,7 @@ Thanks for helping. Please open an issue before large changes.
 
 ## Setup
 
-- Hugo 0.158.0 or later, and Go (for module tests).
+- Hugo 0.169.0 or later, and Go (for module tests).
 - Node and npm for the dev-only tooling: `npm install`, then `npx playwright install chromium` once. Site owners never need Node.
 
 ```sh
@@ -33,7 +33,7 @@ Keep them focused; describe what and why; include the checks above that apply an
 
 ## CI
 
-`.github/workflows/ci.yml` builds `exampleSite` on Hugo 0.158.0 and latest, and runs token sync, parity, axe, keyboard and vnu checks. `pages.yml` deploys `exampleSite` to GitHub Pages on `main`.
+`.github/workflows/ci.yml` builds `exampleSite` on Hugo 0.169.0 and latest, and runs token sync, parity, axe, keyboard and vnu checks. `pages.yml` deploys `exampleSite` to GitHub Pages on `main`.
 
 ## Releasing
 

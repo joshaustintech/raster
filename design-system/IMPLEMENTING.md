@@ -2,7 +2,7 @@
 
 Handoff for Claude Code (or any developer). Raster is the design system for a senior software engineer's site: portfolio (Work), blog (Writing), short notes (Notes), About/Contact. It is plain CSS plus HTML conventions: no JavaScript, no build step, no framework dependency.
 
-**Target framework:** Hugo, min 0.158.0 — before writing code, read that framework's current docs for: templating/components, layouts, static assets, routing, and how to include global CSS. Do not assume conventions from a more popular framework.
+**Target framework:** Hugo, min 0.169.0 — before writing code, read that framework's current docs for: templating/components, layouts, static assets, routing, and how to include global CSS. Do not assume conventions from a more popular framework.
 
 ## What is in this folder
 
