@@ -1,0 +1,14 @@
+{
+  "name": "raster-dev-tools",
+  "private": true,
+  "description": "Dev-only tooling for the Raster Hugo theme. Site owners never need Node.",
+  "type": "module",
+  "scripts": {
+    "tokens": "node scripts/build-tokens.mjs",
+    "tokens:check": "node scripts/build-tokens.mjs --check",
+    "parity": "node scripts/parity/parity.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.65.0"
+  }
+}
