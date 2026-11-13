@@ -1,0 +1,2 @@
+{{- /* Inputs: dict: label (eyebrow, default "Note"), body (HTML), field (bool) */ -}}
+<aside class="rs-aside{{ if .field }} rs-aside--field{{ end }}"><p class="rs-eyebrow">{{ .label | default "Note" }}</p>{{ .body | safeHTML }}</aside>

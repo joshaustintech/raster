@@ -1,0 +1,33 @@
+{{- /* Inputs: dict: page (note page), large (bool), embed (bool: embed output, no actions panel/links) */ -}}
+{{- $p := .page -}}
+{{- $id := $p.File.ContentBaseName | default $p.Title -}}
+{{- $author := $p.Params.author | default site.Params.author.name | default site.Title -}}
+{{- $handle := $p.Params.handle | default site.Params.author.handle -}}
+{{- $init := "" -}}{{ range first 2 (split $author " ") }}{{ $init = printf "%s%s" $init (substr . 0 1 | upper) }}{{ end -}}
+{{- $replyTo := site.Params.notes.replyTo -}}
+<article class="rs-card rs-post{{ if .large }} rs-post--large{{ end }}{{ if .embed }} rs-embed{{ end }} h-entry" id="note-{{ $id }}" aria-labelledby="note-{{ $id }}-by" data-permalink="{{ $p.Permalink }}" data-embed="{{ $p.Permalink }}embed/">
+  <div class="rs-card__body">
+    <header class="rs-post__head">
+      <span class="rs-avatar" aria-hidden="true">{{ $init }}</span>
+      <div class="rs-post__who p-author h-card"><p class="rs-post__name p-name" id="note-{{ $id }}-by">{{ $author }}</p>{{ with $handle }}<span class="rs-mono rs-post__handle">{{ . }}</span>{{ end }}</div>
+      <a class="rs-post__time u-url" href="{{ $p.RelPermalink }}"><time class="dt-published" datetime="{{ $p.Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ $p.Date.Format "2 Jan 2006" }}</time></a>
+    </header>
+    <p class="rs-post__text e-content">{{ $p.Content | replaceRE `^\s*<p>` "" | replaceRE `</p>\s*$` "" | replaceRE `</p>\s*<p>` "<br><br>" | safeHTML }}</p>
+    {{- with $p.Params.media }}
+    {{ partial "figure.html" (dict "src" .src "alt" .alt "ratio" (.ratio | default "16x9") "page" $p) | replaceRE `<figure class="rs-figure[^"]*"` `<figure class="rs-card__media rs-figure"` | safeHTML }}
+    {{- end }}
+  </div>
+  {{- if not .embed }}
+  <footer class="rs-post__actions">
+    {{- with $replyTo }}<a class="rs-post__action" href="{{ . }}">Reply</a>{{ end }}
+    <button class="rs-post__action rs-post__action--end" type="button" data-action="share" hidden>Share</button>
+    <button class="rs-post__action" type="button" data-action="embed" aria-expanded="false" aria-controls="embed-{{ $id }}" hidden>Embed</button>
+    <button class="rs-post__action" type="button" data-action="copy" hidden>Copy link</button>
+  </footer>
+  <div class="rs-post__panel" id="embed-{{ $id }}" hidden>
+    <p class="rs-eyebrow">Embed this note</p>
+    <pre><code>{{ printf `<iframe src="%sembed/" title="Note by %s" width="100%%" height="240" loading="lazy" style="border:0;max-width:560px"></iframe>` $p.Permalink $author }}</code></pre>
+    <div class="rs-actions"><button class="rs-btn rs-btn--primary" type="button" data-action="copy-code">Copy code</button><button class="rs-btn rs-btn--secondary" type="button" data-action="copy">Copy link</button></div>
+  </div>
+  {{- end }}
+</article>

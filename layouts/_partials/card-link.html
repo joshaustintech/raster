@@ -1,0 +1,20 @@
+{{- /* Inputs: dict: page (target), kicker (e.g. "Work"), index, total (-> "01 / 04"), summary, meta (slice of strings), image (resource), alt, heading (default h3) */ -}}
+{{- $p := .page -}}
+{{- $h := .heading | default "h3" -}}
+{{- $kicker := .kicker -}}
+{{- if and .index .total }}{{ $kicker = printf "%s · %02d / %02d" .kicker .index .total }}{{ end -}}
+<article class="rs-card rs-card--link">
+  {{- with .image }}
+  <figure class="rs-card__media">
+    {{- $r := .Resize "800x webp q80" }}
+    <img src="{{ $r.RelPermalink }}" srcset="{{ (.Resize "480x webp q80").RelPermalink }} 480w, {{ $r.RelPermalink }} 800w" sizes="(min-width: 1024px) 400px, 100vw" width="{{ $r.Width }}" height="{{ $r.Height }}" alt="{{ $.alt }}" loading="lazy" decoding="async">
+  </figure>
+  {{- end }}
+  <div class="rs-card__body">
+    <div class="rs-card__head">{{ with $kicker }}<p class="rs-mono">{{ . }}</p>{{ end }}{{ printf `<%s class="rs-card__title"><a class="rs-card__link" href="%s">%s</a></%s>` $h $p.RelPermalink ($p.Title | htmlEscape) $h | safeHTML }}</div>
+    {{- with (.summary | default $p.Description | default $p.Summary) }}<p class="rs-card__text">{{ . | plainify }}</p>{{ end }}
+    {{- with .meta }}
+    <div class="rs-card__meta">{{ range . }}<span class="rs-mono">{{ . }}</span>{{ end }}</div>
+    {{- end }}
+  </div>
+</article>

@@ -1,0 +1,7 @@
+{{- /* Inputs: dict: text (markdown inline or HTML), who (eyebrow), source (small line) */ -}}
+<figure class="rs-quote">
+  <blockquote><p>{{ .text }}</p></blockquote>
+  {{- if or .who .source }}
+  <figcaption>{{ with .who }}<span class="rs-eyebrow">{{ . }}</span>{{ end }}{{ with .source }}<span class="rs-t-small">{{ . }}</span>{{ end }}</figcaption>
+  {{- end }}
+</figure>

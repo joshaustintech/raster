@@ -1,0 +1,33 @@
+{{- /* Inputs: page (default .), or dict: image (resource), alt, eyebrow, title, lede, action (dict label,href), focal, band (bool), heading (default "h2"), page (for resource lookup) */ -}}
+{{- $c := . -}}
+{{- $img := $c.image -}}
+{{- $alt := $c.alt | default "" -}}
+{{- $heading := $c.heading | default "h2" -}}
+<section class="rs-bleed{{ if $c.band }} rs-bleed--band{{ end }}">
+  {{- if $img }}
+  {{- if eq $img.MediaType.SubType "svg" }}
+  <img class="rs-bleed__img" src="{{ $img.RelPermalink }}" alt="{{ $alt }}"{{ with $c.focal }} style="--focal: {{ . }}"{{ end }}>
+  {{- else }}
+  {{- $s := slice 640 1024 1600 2400 }}
+  {{- $set := slice }}
+  {{- range $s }}{{ if le . $img.Width }}{{ $r := $img.Resize (printf "%dx webp q80" .) }}{{ $set = $set | append (printf "%s %dw" $r.RelPermalink .) }}{{ end }}{{ end }}
+  {{- $def := $img.Resize (printf "%dx webp q80" (cond (lt $img.Width 1600) $img.Width 1600)) }}
+  <img class="rs-bleed__img" src="{{ $def.RelPermalink }}"{{ with $set }} srcset="{{ delimit . ", " }}" sizes="100vw"{{ end }} width="{{ $def.Width }}" height="{{ $def.Height }}" alt="{{ $alt }}" decoding="async" fetchpriority="high"{{ with $c.focal }} style="--focal: {{ . }}"{{ end }}>
+  {{- end }}
+  {{- else }}
+  <div class="rs-bleed__img" role="img" aria-label="{{ $alt }}"></div>
+  {{- end }}
+  {{- if not $c.band }}
+  <div class="rs-bleed__scrim"></div>
+  {{- end }}
+  <div class="rs-wrap rs-cols">
+    <div class="rs-bleed__content">
+      {{- with $c.eyebrow }}<p class="rs-eyebrow">{{ . }}</p>{{ end }}
+      {{ printf `<%s class="rs-t-display">%s</%s>` $heading ($c.title | htmlEscape) $heading | safeHTML }}
+      {{- with $c.lede }}<p class="rs-t-lede">{{ . }}</p>{{ end }}
+      {{- with $c.action }}
+      <div class="rs-actions"><a class="rs-btn rs-btn--on-media" href="{{ .href }}">{{ .label }} <span class="rs-arrow">→</span></a></div>
+      {{- end }}
+    </div>
+  </div>
+</section>

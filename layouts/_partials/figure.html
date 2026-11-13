@@ -1,0 +1,28 @@
+{{- /* Inputs: dict: src (resource or path string), alt, ratio (1x1|4x3|3x2|16x9|21x9), width (wide|full), caption, num (e.g. "Fig. 01"), eager (bool), page (for Resources lookup of string src), sizes */ -}}
+{{- $c := . -}}
+{{- $ratio := $c.ratio | default "3x2" -}}
+{{- $img := $c.src -}}
+{{- if eq (printf "%T" $img) "string" -}}
+  {{- $s := $img -}}
+  {{- $img = "" -}}
+  {{- with $c.page }}{{ with .Resources.Get $s }}{{ $img = . }}{{ end }}{{ end -}}
+  {{- if not $img }}{{ with resources.Get $s }}{{ $img = . }}{{ end }}{{ end -}}
+  {{- if not $img }}{{ warnf "figure: image %q not found" $s }}{{ end -}}
+{{- end -}}
+{{- if not $c.alt }}{{ warnf "figure: missing alt text for %v" (cond (ne $img "") $img.Name "image") }}{{ end -}}
+<figure class="rs-figure rs-figure--{{ $ratio }}{{ with $c.width }} rs-figure--{{ . }}{{ end }}">
+  {{- if not $img }}
+  <div class="rs-ph" role="img" aria-label="{{ $c.alt }}"></div>
+  {{- else if or (eq $img.MediaType.SubType "svg") (eq $img.MediaType.SubType "gif") }}
+  <img src="{{ $img.RelPermalink }}" alt="{{ $c.alt }}"{{ with $img.Width }} width="{{ . }}" height="{{ $img.Height }}"{{ end }} loading="lazy" decoding="async">
+  {{- else }}
+  {{- $set := slice }}
+  {{- range slice 480 800 1200 1600 2400 }}{{ if le . $img.Width }}{{ $r := $img.Resize (printf "%dx webp q80" .) }}{{ $set = $set | append (printf "%s %dw" $r.RelPermalink .) }}{{ end }}{{ end }}
+  {{- $def := $img.Resize (printf "%dx webp q80" (cond (lt $img.Width 1200) $img.Width 1200)) }}
+  {{- $sizes := $c.sizes | default (cond (or (eq $c.width "wide") (eq $c.width "full")) "(min-width: 1024px) 1280px, 100vw" "(min-width: 1024px) 800px, 100vw") }}
+  <img src="{{ $def.RelPermalink }}"{{ with $set }} srcset="{{ delimit . ", " }}" sizes="{{ $sizes }}"{{ end }} width="{{ $def.Width }}" height="{{ $def.Height }}" alt="{{ $c.alt }}"{{ if $c.eager }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async">
+  {{- end }}
+  {{- if or $c.caption $c.num }}
+  <figcaption>{{ with $c.num }}<span class="rs-mono">{{ . }}</span>{{ end }}{{ with $c.caption }}<span>{{ . | markdownify }}</span>{{ end }}</figcaption>
+  {{- end }}
+</figure>

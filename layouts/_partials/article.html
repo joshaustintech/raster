@@ -1,0 +1,17 @@
+{{- /* Inputs: page (default .). Front matter: eyebrow (else section), lede (else description), tags. */ -}}
+{{- $p := . -}}
+<article class="rs-article"><div class="rs-wrap">
+  <header class="rs-cols"><div class="rs-article__head">
+    {{- with ($p.Params.eyebrow | default $p.Section | title) }}<p class="rs-eyebrow">{{ . }}</p>{{ end }}
+    <h1 class="rs-t-display">{{ $p.Title }}</h1>
+    {{- with ($p.Params.lede | default $p.Description) }}<p class="rs-t-lede">{{ . }}</p>{{ end }}
+    <div class="rs-article__meta">
+      {{- if not $p.Date.IsZero }}<span class="rs-mono"><time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "2 Jan 2006" }}</time></span>{{ end }}
+      {{- if $p.Params.readingTime | or (gt $p.ReadingTime 0) }}<span class="rs-mono">{{ $p.ReadingTime }} min read</span>{{ end }}
+      {{- with $p.Params.tags }}<span class="rs-mono">{{ delimit . " · " }}</span>{{ end }}
+    </div>
+  </div></header>
+  <div class="rs-cols rs-article__body">
+    {{ $p.Content }}
+  </div>
+</div></article>
