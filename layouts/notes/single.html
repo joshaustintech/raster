@@ -1,11 +1,12 @@
 {{ define "main" }}
 {{- $author := .Params.author | default site.Params.author.name | default site.Title -}}
 <div class="rs-wrap rs-cols">
+  <h1 class="rs-sr">{{ printf "Note by %s, %s" $author (.Date.Format "2 Jan 2006") }}</h1>
   <div class="rs-feed">
     {{ partial "card-post.html" (dict "page" . "large" true) }}
     <section aria-labelledby="plain-embed">
       <p class="rs-eyebrow" id="plain-embed">Plain embed</p>
-      <pre><code>{{ printf `<blockquote class="rs-embed" cite="%s"><p>%s</p>%s (%s) <a href="%s">%s</a></blockquote>` .Permalink (.Plain | strings.TrimSpace) $author (.Params.handle | default site.Params.author.handle | default "") .Permalink (.Date.Format "2 Jan 2006") }}</code></pre>
+      <pre tabindex="0"><code>{{ printf `<blockquote class="rs-embed" cite="%s"><p>%s</p>%s (%s) <a href="%s">%s</a></blockquote>` .Permalink (.Plain | strings.TrimSpace) $author (.Params.handle | default site.Params.author.handle | default "") .Permalink (.Date.Format "2 Jan 2006") }}</code></pre>
     </section>
   </div>
 </div>

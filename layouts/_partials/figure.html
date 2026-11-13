@@ -13,8 +13,11 @@
 <figure class="rs-figure rs-figure--{{ $ratio }}{{ with $c.width }} rs-figure--{{ . }}{{ end }}">
   {{- if not $img }}
   <div class="rs-ph" role="img" aria-label="{{ $c.alt }}"></div>
-  {{- else if or (eq $img.MediaType.SubType "svg") (eq $img.MediaType.SubType "gif") }}
-  <img src="{{ $img.RelPermalink }}" alt="{{ $c.alt }}"{{ with $img.Width }} width="{{ . }}" height="{{ $img.Height }}"{{ end }} loading="lazy" decoding="async">
+  {{- else if eq $img.MediaType.SubType "svg" }}
+  {{- /* SVG: no image processing; Hugo cannot read intrinsic dimensions, so the .rs-figure--<ratio> box sizes it. */}}
+  <img src="{{ $img.RelPermalink }}" alt="{{ $c.alt }}"{{ if $c.eager }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async">
+  {{- else if eq $img.MediaType.SubType "gif" }}
+  <img src="{{ $img.RelPermalink }}" alt="{{ $c.alt }}" width="{{ $img.Width }}" height="{{ $img.Height }}" loading="lazy" decoding="async">
   {{- else }}
   {{- $set := slice }}
   {{- range slice 480 800 1200 1600 2400 }}{{ if le . $img.Width }}{{ $r := $img.Resize (printf "%dx webp q80" .) }}{{ $set = $set | append (printf "%s %dw" $r.RelPermalink .) }}{{ end }}{{ end }}

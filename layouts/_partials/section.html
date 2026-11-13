@@ -1,4 +1,4 @@
-{{- /* SectionHeader. Input (dict): num (int, 1-based), total (int), eyebrow, title, intro. Emits the section start; place inside .rs-wrap. */ -}}
+{{- /* SectionHeader. Input (dict): num (int, 1-based), total (int), eyebrow, title, intro, tag (h1-h6; default h2, use h1 when the page has no other h1). Emits the section start; place inside .rs-wrap. */ -}}
 <section class="rs-cols rs-section">
   <div class="rs-section__index">
     <p class="rs-section__num">{{ printf "%02d" .num }}</p>
@@ -8,7 +8,7 @@
     {{- with .eyebrow }}
     <p class="rs-eyebrow">{{ . }}</p>
     {{- end }}
-    <h2 class="rs-t-headline rs-section__title">{{ .title }}</h2>
+    {{ $t := .tag | default "h2" }}{{ printf `<%s class="rs-t-headline rs-section__title">` $t | safeHTML }}{{ .title }}{{ printf "</%s>" $t | safeHTML }}
     {{- with .intro }}
     <p class="rs-section__text">{{ . }}</p>
     {{- end }}

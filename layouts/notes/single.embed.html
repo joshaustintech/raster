@@ -5,7 +5,10 @@
   <meta name="robots" content="noindex">
 </head>
 <body>
+  <main>
+  <h1 class="rs-sr">{{ printf "Note by %s, %s" (.Params.author | default site.Params.author.name | default site.Title) (.Date.Format "2 Jan 2006") }}</h1>
   {{ partial "card-post.html" (dict "page" . "embed" true) }}
+  </main>
   {{ partial "notes-js.html" "embed" }}
 </body>
 </html>

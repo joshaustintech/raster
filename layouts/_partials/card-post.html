@@ -1,4 +1,4 @@
-{{- /* Inputs: dict: page (note page), large (bool), embed (bool: embed output, no actions panel/links) */ -}}
+{{- /* Inputs: dict: page (note page), large (bool), embed (bool: embed output, no actions panel/links). Front matter: media {src, alt, ratio}, quote {who, text} (quoted-post card, as reference/Card.html). */ -}}
 {{- $p := .page -}}
 {{- $id := $p.File.ContentBaseName | default $p.Title -}}
 {{- $author := $p.Params.author | default site.Params.author.name | default site.Title -}}
@@ -13,6 +13,9 @@
       <a class="rs-post__time u-url" href="{{ $p.RelPermalink }}"><time class="dt-published" datetime="{{ $p.Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ $p.Date.Format "2 Jan 2006" }}</time></a>
     </header>
     <p class="rs-post__text e-content">{{ $p.Content | replaceRE `^\s*<p>` "" | replaceRE `</p>\s*$` "" | replaceRE `</p>\s*<p>` "<br><br>" | safeHTML }}</p>
+    {{- with $p.Params.quote }}
+    <div class="rs-card rs-post__quote"><div class="rs-card__body"><p class="rs-mono">Quoting · {{ .who }}</p><p class="rs-post__text">{{ .text }}</p></div></div>
+    {{- end }}
     {{- with $p.Params.media }}
     {{ partial "figure.html" (dict "src" .src "alt" .alt "ratio" (.ratio | default "16x9") "page" $p) | replaceRE `<figure class="rs-figure[^"]*"` `<figure class="rs-card__media rs-figure"` | safeHTML }}
     {{- end }}

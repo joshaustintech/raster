@@ -1,2 +1,2 @@
-{{- /* Button link. Inputs (dict): label, href, variant (primary|secondary|signal|text; default primary), arrow (bool). */ -}}
-<a class="rs-btn rs-btn--{{ .variant | default "primary" }}" href="{{ .href }}">{{ .label }}{{ if .arrow }} <span class="rs-arrow">→</span>{{ end }}</a>
+{{- /* Button link. Inputs (dict): label, href, variant (primary|secondary|signal|text; default primary), arrow (bool), rel. */ -}}
+<a class="rs-btn rs-btn--{{ .variant | default "primary" }}" href="{{ .href }}"{{ with .rel }} rel="{{ . }}"{{ end }}>{{ .label }}{{ if .arrow }} <span class="rs-arrow">→</span>{{ end }}</a>

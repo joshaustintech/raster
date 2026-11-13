@@ -1,1 +1,1 @@
-{{- partial "aside.html" (dict "label" (.Get "label") "field" (.Get "field") "body" (.Inner | markdownify)) -}}
+{{- partial "aside.html" (dict "label" (.Get "label") "field" (.Get "field") "body" (.Page.RenderString (dict "display" "block") .Inner)) -}}

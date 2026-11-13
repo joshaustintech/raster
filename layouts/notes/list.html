@@ -1,21 +1,13 @@
 {{ define "main" }}
-<div class="rs-wrap rs-cols">
-  <header class="rs-feed-head">
-    <h1 class="rs-h1">{{ .Title }}</h1>
-  </header>
+{{ partial "hero.html" . }}
+<div class="rs-wrap">
   {{- $pag := .Paginate .Pages.ByDate.Reverse -}}
-  <div class="rs-feed h-feed">
+  <div class="rs-cols"><div class="rs-feed h-feed">
     {{- range $pag.Pages }}
     {{ partial "card-post.html" (dict "page" .) }}
     {{- end }}
-  </div>
-  {{- if gt $pag.TotalPages 1 }}
-  <nav class="rs-feed" aria-label="Pagination">
-    {{- if $pag.HasPrev }}<a rel="prev" href="{{ $pag.Prev.URL }}">Newer notes</a>{{ end }}
-    <span class="rs-mono">{{ printf "%02d / %02d" $pag.PageNumber $pag.TotalPages }}</span>
-    {{- if $pag.HasNext }}<a rel="next" href="{{ $pag.Next.URL }}">Older notes</a>{{ end }}
-  </nav>
-  {{- end }}
+  </div></div>
+  {{ partial "pager.html" $pag }}
 </div>
 {{ partial "notes-js.html" "notes" }}
 {{ end }}

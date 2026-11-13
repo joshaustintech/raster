@@ -6,8 +6,12 @@
 <article class="rs-card rs-card--link">
   {{- with .image }}
   <figure class="rs-card__media">
+    {{- if eq .MediaType.SubType "svg" }}
+    <img src="{{ .RelPermalink }}" alt="{{ $.alt }}" loading="lazy" decoding="async">
+    {{- else }}
     {{- $r := .Resize "800x webp q80" }}
     <img src="{{ $r.RelPermalink }}" srcset="{{ (.Resize "480x webp q80").RelPermalink }} 480w, {{ $r.RelPermalink }} 800w" sizes="(min-width: 1024px) 400px, 100vw" width="{{ $r.Width }}" height="{{ $r.Height }}" alt="{{ $.alt }}" loading="lazy" decoding="async">
+    {{- end }}
   </figure>
   {{- end }}
   <div class="rs-card__body">

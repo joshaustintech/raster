@@ -1,4 +1,11 @@
 /* Raster theme extensions. Token-only; gaps in raster.css live here (see spec §3). */
+/* Page canvas: raster.css leaves html/body transparent (reference pages set this in demo <style>), so dark mode would sit on a white canvas. */
+:root { color-scheme: light dark; }
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+html { background: var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-text); }
+
 .rs-skip { position: absolute; left: var(--space-2); top: -64px; z-index: 20; padding: var(--space-2) var(--space-3); background: var(--ink); color: var(--paper); }
 .rs-skip:focus { top: var(--space-2); }
 
@@ -29,3 +36,30 @@
 
 /* Notes JS: live region, visually hidden */
 .rs-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* Footer theme toggle: legible on the night band and a 44px target (raster.css .rs-btn--text sets fleece, min-height 0). */
+.rs-footer .rs-btn--text { color: var(--night-ink); min-height: 44px; min-width: 44px; padding-inline: var(--space-1); }
+
+/* Grid children may shrink below their content (long URLs, embed code) so 320px never scrolls horizontally. */
+.rs-feed, .rs-feed > * { min-width: 0; }
+.rs-feed pre { overflow-x: auto; }
+
+/* Text buttons are inline in raster.css (min-height 0); keep every interactive target at 44px. */
+.rs-btn--text { min-height: 44px; }
+.rs-btn--text { padding-inline: var(--space-1); }
+
+/* Pager (pager.html): spaced from content and footer, flush-left, aligned to the content edge. */
+.rs-pager { padding-block: var(--space-6) var(--space-8); }
+.rs-pager .rs-section__body { grid-column: 1 / -1; padding-top: 0; }
+.rs-pager .rs-actions { align-items: center; gap: var(--space-3); }
+.rs-pager .rs-btn--text { padding-inline: 0; }
+
+/* Term list (taxonomy.html): plain list of .rs-tag links; the hit area is widened to 44px without changing the pill. */
+.rs-taglist { list-style: none; margin: 0; padding: 0 0 var(--space-8); grid-column: 1 / -1; }
+.rs-taglist a { position: relative; }
+.rs-taglist a::after { content: ""; position: absolute; inset: calc(var(--space-1) * -1.25) 0; }
+
+/* Short pages: keep the footer at the bottom of the viewport instead of leaving bare canvas under it. */
+.rs-c { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+.rs-c > main { flex: 1 0 auto; }
+.rs-footer .rs-btn--text { padding-inline: 0; }

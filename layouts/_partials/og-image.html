@@ -6,7 +6,7 @@
 {{- $custom := $page.Params.image -}}
 {{- if $custom -}}
   {{- $r := or ($page.Resources.GetMatch $custom) (resources.Get $custom) -}}
-  {{- if $r -}}{{- return ($r.Fill "1200x630 center") -}}{{- end -}}
+  {{- if and $r (ne $r.MediaType.SubType "svg") -}}{{- return ($r.Fill "1200x630 center") -}}{{- end -}}
 {{- end -}}
 {{- $ascii := not (findRE `[^\x20-\x7E]` $text) -}}
 {{- $sans := resources.Get "og/InterTight-Variable.ttf" -}}

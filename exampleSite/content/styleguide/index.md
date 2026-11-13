@@ -8,6 +8,9 @@ sitemap:
 build:
   list: never
 hero:
+  image: img/diagram-flow.png
+  alt: "Flat diagram in slate and paper blocks."
+  ratio: 3x2
   eyebrow: Development only · not linked
   lede: Every component and variant, rendered by the theme's own partials. Compare against design-system/reference.
   actions:

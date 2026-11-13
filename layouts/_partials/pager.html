@@ -1,11 +1,11 @@
 {{- /* Pager. Input: a Hugo Pager. Renders nothing for a single page. Uses text buttons and mono status. */ -}}
 {{- if gt .TotalPages 1 }}
-<nav class="rs-cols rs-section" aria-label="Pagination">
+<nav class="rs-cols rs-section rs-pager" aria-label="Pagination">
   <div class="rs-section__body">
     <div class="rs-actions">
-      {{- if .HasPrev }}{{ partial "button.html" (dict "label" "Newer" "href" .Prev.URL "variant" "text") }}{{ end }}
-      <span class="rs-mono" aria-current="page">{{ printf "%02d / %02d" .PageNumber .TotalPages }}</span>
-      {{- if .HasNext }}{{ partial "button.html" (dict "label" "Older" "href" .Next.URL "variant" "text") }}{{ end }}
+      {{- if .HasPrev }}{{ partial "button.html" (dict "label" "Newer" "href" .Prev.URL "variant" "text" "rel" "prev") }}{{ end }}
+      <span class="rs-mono" aria-label="Page {{ .PageNumber }} of {{ .TotalPages }}">{{ printf "%02d / %02d" .PageNumber .TotalPages }}</span>
+      {{- if .HasNext }}{{ partial "button.html" (dict "label" "Older" "href" .Next.URL "variant" "text" "rel" "next") }}{{ end }}
     </div>
   </div>
 </nav>

@@ -29,6 +29,8 @@
   {{ partial "section.html" (dict "num" 5 "total" 8 "eyebrow" "Content" "title" "Figure, Quote, Aside") }}
   <div class="rs-cols">
     {{ partial "figure.html" (dict "alt" "Placeholder 3:2" "ratio" "3x2" "caption" "Default figure." "num" "Fig. 01") }}
+    {{ partial "figure.html" (dict "alt" "Placeholder 16:9" "ratio" "16x9" "caption" "Default 16:9 figure." "num" "Fig. 02") }}
+    {{ partial "figure.html" (dict "alt" "Placeholder 1:1" "ratio" "1x1" "caption" "Square figure." "num" "Fig. 03") }}
     {{ partial "figure.html" (dict "alt" "Placeholder wide 16:9" "ratio" "16x9" "width" "wide" "caption" "Wide figure.") }}
     {{ partial "figure.html" (dict "alt" "Placeholder full 21:9" "ratio" "21x9" "width" "full" "caption" "Full figure.") }}
     {{ partial "quote.html" (dict "text" "Boring technology is a feature." "who" "Sam Okafor" "source" "Platform lead") }}
@@ -38,18 +40,21 @@
   {{ partial "section.html" (dict "num" 6 "total" 8 "eyebrow" "Cards" "title" "Link, post") }}
   <div class="rs-cols">
     {{ partial "card-link.html" (dict "page" $p "kicker" "Work" "index" 1 "total" 4 "summary" "A link card with kicker, summary and meta." "meta" (slice "2026" "Platform")) }}
+    {{ with site.GetPage "/work/queue" }}{{ $c := .Params.cover }}{{ partial "card-link.html" (dict "page" . "kicker" "Work" "index" 1 "total" 4 "summary" "A link card with a media figure." "image" (resources.Get $c.image) "alt" $c.alt "meta" (slice "2025" "Postgres")) }}{{ end }}
     {{ with $note }}{{ partial "card-post.html" (dict "page" .) }}{{ end }}
+    {{ with site.GetPage "/notes/diagram" }}{{ partial "card-post.html" (dict "page" .) }}{{ end }}
     {{ with $large }}{{ partial "card-post.html" (dict "page" . "large" true) }}{{ end }}
     {{ with $note }}{{ partial "card-post.html" (dict "page" . "embed" true) }}{{ end }}
   </div>
   {{ partial "section.html" (dict "num" 7 "total" 8 "eyebrow" "Forms" "title" "Form, error state") }}
   {{- /* Static markup from reference/Card.html (error state); the real card-form partial is rendered on /about/. */}}
   <div class="rs-cols">
+    {{ partial "card-form.html" . }}
     <section class="rs-card rs-card--raised" aria-labelledby="sg-form-title">
       <div class="rs-card__body">
-        <div class="rs-card__head"><p class="rs-eyebrow">Contact</p><h3 class="rs-card__title" id="sg-form-title">Form with an error</h3></div>
+        <div class="rs-card__head"><p class="rs-eyebrow">Contact</p><h3 class="rs-card__title" id="sg-form-title">Form with an error</h3><p class="rs-card__text">Static copy of the error state in reference/Card.html.</p></div>
         <form class="rs-form" action="#form-error" method="post" novalidate id="form-error">
-          <div class="rs-field"><label class="rs-label" for="f-email">Email</label><input class="rs-input" id="f-email" type="email" autocomplete="email" value="sam@" aria-invalid="true" aria-describedby="f-email-err"><p class="rs-error" id="f-email-err">Error: enter a full email address.</p></div>
+          <div class="rs-field"><label class="rs-label" for="sg-email">Email</label><input class="rs-input" id="sg-email" type="email" autocomplete="email" value="sam@" aria-invalid="true" aria-describedby="sg-email-err"><p class="rs-error" id="sg-email-err">Error: enter a full email address.</p></div>
           <div class="rs-form__foot"><button class="rs-btn rs-btn--primary" type="submit">Send message</button></div>
         </form>
       </div>
