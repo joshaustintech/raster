@@ -11,5 +11,5 @@
     {{- end }}
   </div>
   <div class="rs-footer__legal"><span>{{ site.Params.footer.legal | default (printf "© %d %s" now.Year site.Title) }}</span><span>{{ site.Params.footer.legalExtra | default (i18n "legalExtra") }}</span></div>
-  {{- /* HOOK (issue 15): theme toggle text button goes here. */}}
+  <button type="button" class="rs-btn rs-btn--text" data-theme-toggle hidden aria-pressed="false" data-label="{{ i18n "theme" }}" data-label-auto="{{ i18n "themeAuto" }}" data-label-light="{{ i18n "themeLight" }}" data-label-dark="{{ i18n "themeDark" }}">{{ i18n "theme" }}: {{ i18n "themeAuto" }}</button>
 </div></footer>

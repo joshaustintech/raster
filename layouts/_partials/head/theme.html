@@ -1,0 +1,4 @@
+{{- /* Blocking external script (ADR-0004): sets data-theme before first paint. No inline script, CSP-safe. */ -}}
+{{- with resources.Get "js/theme.js" | minify | fingerprint -}}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{- end }}

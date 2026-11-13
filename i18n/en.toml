@@ -9,3 +9,15 @@ other = "Menu"
 
 [legalExtra]
 other = "Built on Raster · No trackers"
+
+[theme]
+other = "Theme"
+
+[themeAuto]
+other = "auto"
+
+[themeLight]
+other = "light"
+
+[themeDark]
+other = "dark"
