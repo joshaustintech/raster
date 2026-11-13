@@ -1,2 +1,11 @@
 [skip]
 other = "Skip to content"
+
+[navPrimary]
+other = "Primary"
+
+[menu]
+other = "Menu"
+
+[legalExtra]
+other = "Built on Raster · No trackers"

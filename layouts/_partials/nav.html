@@ -1,1 +1,18 @@
-{{/* Placeholder: implemented in issue 05 */}}
+{{- /* Nav. Inputs: menus.main, params.nav.cta {label,url}, params.nav.mark (default site title). Rendered list twice: inline (>=1024px) and in the menu panel. */ -}}
+{{- $page := . -}}
+{{- $cta := site.Params.nav.cta -}}
+{{- $mark := site.Params.nav.mark | default site.Title -}}
+<nav class="rs-nav" aria-label="{{ i18n "navPrimary" }}"><div class="rs-wrap">
+  <a class="rs-nav__mark" href="{{ relLangURL "/" }}">{{ $mark }}</a>
+  {{ partial "navitems.html" (dict "page" $page "entries" site.Menus.main "class" "rs-nav__links") }}
+  {{- with $cta }}
+  <a class="rs-btn rs-btn--primary rs-nav__cta" href="{{ .url }}">{{ .label }}</a>
+  {{- end }}
+  {{- /* HOOK (issue 15): theme toggle button is added in footer.html, not here. */}}
+  <details class="rs-nav__menu"><summary>{{ i18n "menu" }}</summary><div class="rs-nav__panel">
+    {{ partial "navitems.html" (dict "page" $page "entries" site.Menus.main) }}
+    {{- with $cta }}
+    <a class="rs-btn rs-btn--primary" href="{{ .url }}">{{ .label }}</a>
+    {{- end }}
+  </div></details>
+</div></nav>

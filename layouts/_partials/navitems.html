@@ -1,0 +1,8 @@
+{{- /* Nav link list. dict: page, entries, class */ -}}
+{{- $page := .page -}}
+<ul{{ with .class }} class="{{ . }}"{{ end }}>
+{{- range .entries }}
+  {{- $current := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) -}}
+  <li><a href="{{ .URL }}"{{ if $current }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+{{- end -}}
+</ul>

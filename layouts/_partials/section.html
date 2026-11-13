@@ -1,0 +1,16 @@
+{{- /* SectionHeader. Input (dict): num (int, 1-based), total (int), eyebrow, title, intro. Emits the section start; place inside .rs-wrap. */ -}}
+<section class="rs-cols rs-section">
+  <div class="rs-section__index">
+    <p class="rs-section__num">{{ printf "%02d" .num }}</p>
+    <p class="rs-mono">{{ printf "%02d / %02d" .num .total }}</p>
+  </div>
+  <div class="rs-section__body">
+    {{- with .eyebrow }}
+    <p class="rs-eyebrow">{{ . }}</p>
+    {{- end }}
+    <h2 class="rs-t-headline rs-section__title">{{ .title }}</h2>
+    {{- with .intro }}
+    <p class="rs-section__text">{{ . }}</p>
+    {{- end }}
+  </div>
+</section>

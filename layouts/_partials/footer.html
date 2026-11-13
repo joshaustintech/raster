@@ -1,1 +1,15 @@
-{{/* Placeholder: implemented in issue 05 */}}
+{{- /* Footer. Inputs: menus.footer (parent entries = groups, children = links), params.footer.statement, params.footer.legal / legalExtra. */ -}}
+<footer class="rs-footer"><div class="rs-wrap">
+  <div class="rs-cols rs-footer__grid">
+    {{- with site.Params.footer.statement }}
+    <p class="rs-footer__statement">{{ . }}</p>
+    {{- end }}
+    {{- range site.Menus.footer }}
+    {{- if .Children }}
+    <nav class="rs-footer__group" aria-label="{{ .Name }}"><h3>{{ .Name }}</h3><ul>{{ range .Children }}<li><a href="{{ .URL }}">{{ .Name }}</a></li>{{ end }}</ul></nav>
+    {{- end }}
+    {{- end }}
+  </div>
+  <div class="rs-footer__legal"><span>{{ site.Params.footer.legal | default (printf "© %d %s" now.Year site.Title) }}</span><span>{{ site.Params.footer.legalExtra | default (i18n "legalExtra") }}</span></div>
+  {{- /* HOOK (issue 15): theme toggle text button goes here. */}}
+</div></footer>

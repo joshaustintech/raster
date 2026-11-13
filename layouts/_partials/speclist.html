@@ -1,0 +1,8 @@
+{{- /* SpecList. Input: slice of {label, value} (front matter facts). */ -}}
+{{- with . -}}
+<dl class="rs-specs">
+  {{- range . }}
+  <div class="rs-spec"><dt>{{ .label }}</dt><dd>{{ .value }}</dd></div>
+  {{- end }}
+</dl>
+{{- end -}}

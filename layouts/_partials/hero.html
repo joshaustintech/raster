@@ -1,0 +1,23 @@
+{{- /* Hero. Input: page; reads front matter hero: {eyebrow, lede, actions[{label,url,variant}], image, alt, ratio}. Title = page title. */ -}}
+{{- $h := .Params.hero | default dict -}}
+<header class="rs-hero"><div class="rs-wrap rs-cols rs-hero__grid">
+  {{- with $h.eyebrow }}
+  <p class="rs-eyebrow rs-hero__eyebrow">{{ . }}</p>
+  {{- end }}
+  <h1 class="rs-t-display-xl rs-hero__title">{{ .Title }}</h1>
+  {{- with $h.lede }}
+  <p class="rs-t-lede rs-hero__lede">{{ . }}</p>
+  {{- end }}
+  {{- with $h.actions }}
+  <div class="rs-actions rs-hero__actions">
+    {{- range $i, $a := first 2 . }}{{ partial "button.html" (dict "label" $a.label "href" $a.url "variant" ($a.variant | default (cond (eq $i 0) "primary" "secondary"))) }}{{ end -}}
+  </div>
+  {{- end }}
+  {{- with $h.image }}
+  {{- $img := $.Resources.Get . }}
+  <figure class="rs-figure rs-figure--{{ $h.ratio | default "3x2" }} rs-hero__media">
+    {{- if $img }}<img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $h.alt }}" decoding="async">
+    {{- else }}<img src="{{ . }}" alt="{{ $h.alt }}" decoding="async">{{ end -}}
+  </figure>
+  {{- end }}
+</div></header>
