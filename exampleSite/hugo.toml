@@ -1,0 +1,7 @@
+baseURL = "https://example.org/"
+title = "Raster example"
+locale = "en"
+[module]
+  replacements = "github.com/joshaustintech/raster -> ../.."
+  [[module.imports]]
+    path = "github.com/joshaustintech/raster"

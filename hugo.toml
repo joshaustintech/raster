@@ -1,0 +1,22 @@
+# Theme-level module config. Consumers import this module; mounts below apply.
+[module]
+  [module.hugoVersion]
+    min = "0.158.0"
+  [[module.mounts]]
+    source = "design-system/css"
+    target = "assets/css"
+  [[module.mounts]]
+    source = "design-system/fonts"
+    target = "static/fonts"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "i18n"
+    target = "i18n"
+  [[module.mounts]]
+    source = "archetypes"
+    target = "archetypes"
