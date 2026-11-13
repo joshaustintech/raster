@@ -6,7 +6,8 @@ enableRobotsTXT = true
 [params]
   description = "Notes, case studies and writing on building quiet systems."
   [params.author]
-    name = "Avery Lin"
+    # Fictional persona; email is an obviously fake address.
+    name = "Avery Example"
     handle = "@avery"
     email = "hello@example.org"
   [[params.social]]
@@ -25,8 +26,26 @@ enableRobotsTXT = true
 [params.nav.cta]
   label = "Contact"
   url = "/about/"
+# Nav: mark defaults to the site title; cta is the primary button.
+[params.nav]
+  mark = "Avery Example"
 [params.footer]
+  # Statement shown large in the footer; legal / legalExtra override the copyright line.
   statement = "Building quiet systems for loud problems."
+  legal = "Fictional example site"
+# Contact card on /about/ (action defaults to mailto:<author.email>; js=false disables progressive enhancement).
+[params.contact]
+  eyebrow = "Contact"
+  title = "Start a conversation"
+  text = "Demonstration form only. Nothing is sent anywhere."
+  help = "A few sentences on the problem and timeline."
+  note = "Replies within a week. Fictional."
+  submit = "Send message"
+  company = true
+  newsletter = "Send me the monthly writing"
+# Notes: replyTo adds a Reply link to each note card.
+[params.notes]
+  replyTo = "mailto:hello@example.org"
 [menus]
   [[menus.main]]
     name = "Work"
@@ -36,6 +55,10 @@ enableRobotsTXT = true
     name = "Writing"
     url = "/writing/"
     weight = 2
+  [[menus.main]]
+    name = "Notes"
+    url = "/notes/"
+    weight = 3
   [[menus.footer]]
     name = "Site"
     identifier = "f-site"
@@ -45,6 +68,21 @@ enableRobotsTXT = true
     parent = "f-site"
     url = "/work/"
     weight = 1
+  [[menus.footer]]
+    name = "Writing"
+    parent = "f-site"
+    url = "/writing/"
+    weight = 2
+  [[menus.footer]]
+    name = "Notes"
+    parent = "f-site"
+    url = "/notes/"
+    weight = 3
+  [[menus.footer]]
+    name = "About"
+    parent = "f-site"
+    url = "/about/"
+    weight = 4
 
 # Required by the theme: figure/quote hooks need block images; Chroma must emit classes.
 [markup.goldmark.parser]

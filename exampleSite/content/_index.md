@@ -1,5 +1,6 @@
 ---
 title: Avery Example
+description: Fictional staff engineer portfolio demonstrating the Raster Hugo theme.
 hero:
   eyebrow: Staff engineer
   lede: I design and build quiet systems for loud problems.
